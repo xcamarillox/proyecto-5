@@ -1,7 +1,7 @@
 {
-    "name": "myapp",
+    "name": "flixbuster",
     "version": "1.0.0",
-    "description": "myapp",
+    "description": "flixbuster",
     "source": "./src/index.html",
     "scripts": {
         "start": "parcel",
@@ -11,12 +11,14 @@
     "author": "Carlos Camarillo",
     "license": "ISC",
     "dependencies": {
+        "@ant-design/icons": "^4.7.0",
         "antd": "^4.20.2",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
         "react-router-dom": "^6.3.0"
     },
     "devDependencies": {
-        "parcel": "^2.5.0"
+        "parcel": "^2.5.0",
+        "process": "^0.11.10"
     }
 }
