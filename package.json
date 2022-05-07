@@ -1,0 +1,22 @@
+{
+    "name": "myapp",
+    "version": "1.0.0",
+    "description": "myapp",
+    "source": "./src/index.html",
+    "scripts": {
+        "start": "parcel",
+        "build": "parcel build src/index.html --public-url ./"
+    },
+    "keywords": [],
+    "author": "Carlos Camarillo",
+    "license": "ISC",
+    "dependencies": {
+        "antd": "^4.20.2",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-router-dom": "^6.3.0"
+    },
+    "devDependencies": {
+        "parcel": "^2.5.0"
+    }
+}
