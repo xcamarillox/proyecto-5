@@ -6,6 +6,7 @@ import { Input, message } from 'antd';
 import Navbar from "./Navbar";
 import MoviesList from "./MoviesList";
 import MovieCardFull from "./MovieCardFull";
+import SignForm from "./SignForm";
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 
@@ -62,6 +63,7 @@ const App =  () => {
                 <Route path="home" element={ <Input.Search {...inputSearchProps}/> }/>
                 <Route path="filter" element={ movieSearchResults && <MoviesList moviesArr={movieSearchResults} /> }/>
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
+                <Route path="sign" element={ <SignForm /> }/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
         </>

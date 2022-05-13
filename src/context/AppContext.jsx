@@ -11,6 +11,7 @@ export function AppProvider({children}) {
     const [movieSearchResults, setMovieSearchResults] = useState();
     const [pickedMovie, setPickedMovie] = useState();
     const [pickedMovieCast, setPickedMovieCast] = useState();
+    
     //**************** PROVIDED DATA *******************//
     const moviesContextProviderValue = {
       _movieSearchResults:[movieSearchResults, setMovieSearchResults],
@@ -18,6 +19,7 @@ export function AppProvider({children}) {
       _pickedMovieCast:[pickedMovieCast, setPickedMovieCast]
     }
     //**************** PROVIDED DATA *******************//
+
     return (
         <MoviesContext.Provider value={ moviesContextProviderValue }>
           { children }
