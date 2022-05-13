@@ -7,7 +7,7 @@ const Navbar = (props) => {
   const navigate = useNavigate();
   const items = [
     { label: 'Home', key:"home", icon:<HomeOutlined />},
-    { label: 'Movies Filter', key:"movies", icon:<CheckCircleOutlined /> },
+    { label: 'Movies Filter', key:"filter", icon:<CheckCircleOutlined /> },
     { label: 'Movie', key:"movie", icon:<CheckCircleOutlined /> }
   ]
 

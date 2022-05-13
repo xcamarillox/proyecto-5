@@ -2,18 +2,20 @@ import { useState, createContext, useContext } from 'react';
 
 export const MoviesContext = createContext();
 
-export function getContextType(type = 'no-context') {
-  let context; 
-  if (type == "MoviesContext") context = useContext(MoviesContext);
-  if (!context) throw new Error(`The context ${type} must be used within AppProvider`);
-  return context;
+export function getContextType(type) {
+  if (type === "MoviesContext") return useContext(MoviesContext);
+  throw new Error(`The context ${type} must be used within AppProvider`);
 }
 
 export function AppProvider({children}) {
-    let [moviesArr, setMoviesArr] = useState();
+    const [movieSearchResults, setMovieSearchResults] = useState();
+    const [pickedMovie, setPickedMovie] = useState();
+    const [pickedMovieCast, setPickedMovieCast] = useState();
     //**************** PROVIDED DATA *******************//
     const moviesContextProviderValue = {
-      moviesArr
+      _movieSearchResults:[movieSearchResults, setMovieSearchResults],
+      _pickedMovie:[pickedMovie, setPickedMovie],
+      _pickedMovieCast:[pickedMovieCast, setPickedMovieCast]
     }
     //**************** PROVIDED DATA *******************//
     return (

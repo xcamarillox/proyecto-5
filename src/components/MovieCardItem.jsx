@@ -21,7 +21,7 @@ export default ({movie}) => {
         <Card
             hoverable
             onClick={ (event) => handleClickOnCard({ e:event, movie_id:movie.id }) }
-            style={{ maxWidth: 240, textAlign:'center' }}
+            style={{ maxWidth: 240, textAlign:'center', display:'flex', flexDirection:'column', justifyContent:'space-between' }}
             cover={<img src={ movie.poster_path && getImgEndpoint(movie.poster_path) } />}
         >
                 {/* <Card.Meta title={ movie.title } style={{ overflow:'auto' }} description="www.instagram.com" /> */}

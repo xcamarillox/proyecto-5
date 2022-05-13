@@ -94,7 +94,7 @@ export default () => {
                         type='inner' 
                         key={index}
                         cover={ <Image src={ performer.profile_path && getImgEndpoint(performer.profile_path) }/> }
-                        style={{ maxWidth: 100, textAlign:'center' }}
+                        style={{ maxWidth: 100, textAlign:'center', display:'flex', flexDirection:'column', justifyContent:'space-between' }}
                     > 
                       <h3>{ performer.name } </h3>
                     </Card>
