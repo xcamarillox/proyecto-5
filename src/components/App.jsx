@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import { Input, message } from 'antd';
 
 import Navbar from "./Navbar";
 import MoviesList from "./MoviesList";
+import MovieCardFull from "./MovieCardFull";
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 
 const App =  () => {
     const [moviesArr, setMoviesArr] = useState();
-    const [inputValue, setInputValue] = useState()
+    const [inputValue, setInputValue] = useState();
+    const [selectedPath, setSelectedPath] = useState('home');
+    const location = useLocation();
     const handleChange = (e) => setInputValue(e.target.value)
     
     const handleMovieSearch = async (searchedMovie) => {
@@ -42,18 +45,25 @@ const App =  () => {
         value: inputValue
     }
 
+    useEffect(()=>{
+        if (location.pathname != selectedPath) setSelectedPath(location.pathname.slice(1))
+    }, [location])
+
     return (
-        <Routes>
-            <Route path="home" element={
-                <>
-                    <Navbar />
-                    <h1>FlixBuster</h1>
-                    <Input.Search {...inputSearchProps}/>
-                    { moviesArr && <MoviesList moviesArr={moviesArr} /> }
-                </>
-            }/>
-            <Route path="*" element={<Navigate to='home'/>} />
-        </Routes>
+        <>
+            <Navbar selectedPath={selectedPath} />
+            <h1>FlixBuster</h1>
+            <Routes>
+                <Route path="home" element={
+                    <>
+                        <Input.Search {...inputSearchProps}/>
+                        { moviesArr && <MoviesList moviesArr={moviesArr} /> }
+                    </>
+                }/>
+                <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
+                <Route path="*" element={<Navigate to='home'/>} />
+            </Routes>
+        </>
     );
 }
 
