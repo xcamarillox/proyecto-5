@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
 import { Input, message } from 'antd';
 
@@ -32,7 +32,7 @@ const App =  () => {
                 }
                 setMovieSearchResults(response.results);
                 navigate("/filter", { replace: true });
-                console.log(response);
+                //console.log(response);
             }catch(error){
                 message.error(error.message);
             }
@@ -50,8 +50,9 @@ const App =  () => {
     }
 
     useEffect(()=>{
-        const locationSplit = location.pathname.split('/')[1];
-        console.log('location', location, locationSplit);
+        let locationSplit = location.pathname.split('/')[1];
+        //console.log('location', location, locationSplit);
+        if (locationSplit == 'signup' || locationSplit == 'signin') locationSplit = 'sign'
         if (locationSplit != selectedPath) setSelectedPath(locationSplit)
     }, [location])
 
@@ -63,7 +64,8 @@ const App =  () => {
                 <Route path="home" element={ <Input.Search {...inputSearchProps}/> }/>
                 <Route path="filter" element={ movieSearchResults && <MoviesList moviesArr={movieSearchResults} /> }/>
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
-                <Route path="sign" element={ <SignForm /> }/>
+                <Route path="signup" element={ <SignForm /> }/>
+                <Route path="signin" element={ <SignForm /> }/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
         </>

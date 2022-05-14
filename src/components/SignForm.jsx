@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
-
-import { Card, Form, Input, Button, Checkbox } from 'antd';
+import { useNavigate, useLocation } from "react-router-dom";
+import { Card, Form, Input, Button } from 'antd';
 
 const SignForm = () => {
-  const [signMode, setSignMode] = useState('signIn');
+  const [form] = Form.useForm();
+  const [signMode, setSignMode] = useState('signin');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(()=>{
+    form.resetFields();
+    const locationSplit = location.pathname.split('/')[1];
+    if (locationSplit != 'signup') setSignMode('signin')
+    else setSignMode('signup')
+  }, [location])
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -14,18 +24,19 @@ const SignForm = () => {
   };
 
   const handleLink = () => {
-    if (signMode==='signIn') setSignMode('signUp')
-    else setSignMode('signIn')
+    if (signMode==='signin') navigate("/signup", { replace: true });
+    else navigate("/signin", { replace: true });
   };
 
   return (
     <div style={{width:'100%', display:'flex', justifyContent:'center', alignContent:'center'}}>
       <Card 
-        title={ signMode==='signIn'? 'Accede': 'Registrate' } 
+        title={ signMode==='signin'? 'Sign In': 'Sign Up' } 
         headStyle={{display:'flex', justifyContent:'center'}} 
-        style={{ maxWidth: 800, width:'100%' }}
+        style={{ maxWidth: 800, width:'100%', margin:10 }}
       >
         <Form
+          form={form}
           name="basic"
           labelWrap
           labelCol={{ span: 6 }}
@@ -35,7 +46,7 @@ const SignForm = () => {
           onFinishFailed={ onFinishFailed }
           autoComplete="off"
         >
-          { signMode==='signUp' && 
+          { signMode==='signup' && 
             <Form.Item
               label="Username"
               name="username"
@@ -50,12 +61,12 @@ const SignForm = () => {
             </Form.Item>
           }
           <Form.Item
-            label="E-mail"
+            label="Email"
             name="email"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: 'Please input your Email!',
               },
             ]}
           >
@@ -73,14 +84,14 @@ const SignForm = () => {
           >
             <Input.Password />
           </Form.Item>
-          { signMode==='signUp' && 
+          { signMode==='signup' && 
             <Form.Item
               label="Confirm your password"
               name="passwordConfirm"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: 'Please confirm your password!',
                 },
               ]}
             >
@@ -96,14 +107,14 @@ const SignForm = () => {
             }}
           >
             <Button type="primary" htmlType="submit" block>
-              { signMode==='signIn'? 'Acceder': 'Registrame' }
+              { signMode==='signin'? 'Access': 'Sign Me Up' }
             </Button>
-              { signMode==='signIn'? 
+              { signMode==='signin'? 
                 <>
-                  Aún sin una cuenta? <a onClick={handleLink}>Crea una!</a>
+                  Still without an account? <a onClick={handleLink}>Sign Up!</a>
                 </>: 
                 <>
-                  Ya registrado? <a onClick={handleLink}>Accede</a>
+                  Already registered? <a onClick={handleLink}>Sign In</a>
                 </> 
               }
           </Form.Item>

@@ -30,13 +30,13 @@ export default () => {
             //    message.error(`No se tuvieron resultados con ${searchedMovie.trim()}`);
             //    return;
             //}
-            console.log(response);
+            //console.log(response);
             setMovie(response);
             response = await getAPIdata({
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
                 movieId:routeParams.movie_id
             })
-            console.log(response);
+            //console.log(response);
             setCast(response.cast)
         }catch(error){
             message.error(error.message);

@@ -11,7 +11,7 @@ export default ({movie}) => {
     const { _pickedMovie:[pickedMovie, setPickedMovie] } = getContextType('MoviesContext');
 
     const handleClickOnButton = (params) => {
-        console.log('cart', cart)
+        //console.log('cart', cart)
         params.e.stopPropagation();
         let cartCache = cart.map(item => item);
         let areItemsRepeated = false
@@ -30,10 +30,10 @@ export default ({movie}) => {
     }
 
     const handleClickOnCard = (params) => {
-        console.log('card', params)
+        //console.log('card', params)
         params.e.stopPropagation();
         setPickedMovie(params.movie);
-        console.log('card', params, "/movie/" + params.movie.id);
+        //console.log('card', params, "/movie/" + params.movie.id);
         navigate("/movie/" + params.movie.id, { replace: true })
     }
     return (
