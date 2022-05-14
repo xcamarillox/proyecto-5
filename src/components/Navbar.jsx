@@ -1,24 +1,31 @@
 import { useState } from "react";
 import { useNavigate  } from 'react-router-dom';
-import { Menu } from "antd";
-import { HomeOutlined, FilterOutlined, CheckCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { Menu, Input } from "antd";
+import { PlayCircleOutlined, FilterOutlined, CheckCircleOutlined, UserOutlined } from '@ant-design/icons';
+
+import { getContextType } from "../context/AppContext";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
+  const { _pickedMovie:[pickedMovie, setPickedMovie] } = getContextType('MoviesContext');
+
   const items = [
-    { label: 'Home', key:"home", icon:<HomeOutlined />},
-    { label: 'Movies Filter', key:"filter", icon:<FilterOutlined /> },
-    { label: 'Movie', key:"movie", icon:<CheckCircleOutlined /> },
-    { label: 'Sign In/Sign Up', key:"sign", icon:<UserOutlined /> }
+    { label: 'FlixBuster', key:"home", icon:<PlayCircleOutlined />},
+    { label: 'Last Search', key:"filter", icon:<FilterOutlined /> },
+    { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined /> },
+    { label: <Input.Search style={{marginTop:6}} onSearch={props.handleMovieSearch}/>, key:"searchInput", disabled:true },
+    { label: 'Sign In/Sign Up', key:"sign", icon:<UserOutlined /> },
   ]
 
-  const onClickHandler = (params) => navigate("/"+params.key.trim(), { replace: true });
+  const onClickHandler = (params) => {
+    if (params.key.trim() != 'movie') navigate("/"+params.key.trim(), { replace: true });
+    else navigate("/" + params.key.trim() + '/' + pickedMovie.id, { replace: true });
+  }
   
   return <Menu mode="horizontal"
           selectedKeys={[props.selectedPath]} 
-          className='navbar'
           items={items} 
-          onClick={ onClickHandler }/>;
+          onClick={ onClickHandler }/>
 };
 
 export default Navbar;

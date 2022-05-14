@@ -11,12 +11,14 @@ export function AppProvider({children}) {
     const [movieSearchResults, setMovieSearchResults] = useState();
     const [pickedMovie, setPickedMovie] = useState();
     const [pickedMovieCast, setPickedMovieCast] = useState();
-    
+    const [cart, setCart] = useState([]);
+
     //**************** PROVIDED DATA *******************//
     const moviesContextProviderValue = {
       _movieSearchResults:[movieSearchResults, setMovieSearchResults],
       _pickedMovie:[pickedMovie, setPickedMovie],
-      _pickedMovieCast:[pickedMovieCast, setPickedMovieCast]
+      _pickedMovieCast:[pickedMovieCast, setPickedMovieCast],
+      _cart:[cart, setCart]
     }
     //**************** PROVIDED DATA *******************//
 

@@ -62,7 +62,7 @@ const SignForm = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Contraseña"
+            label="Password"
             name="password"
             rules={[
               {
@@ -75,7 +75,7 @@ const SignForm = () => {
           </Form.Item>
           { signMode==='signUp' && 
             <Form.Item
-              label="Confirma tu Contraseña"
+              label="Confirm your password"
               name="passwordConfirm"
               rules={[
                 {

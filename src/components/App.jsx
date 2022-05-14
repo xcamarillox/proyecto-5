@@ -57,7 +57,7 @@ const App =  () => {
 
     return (
         <>
-            <Navbar selectedPath={selectedPath} />
+            <Navbar selectedPath={selectedPath} handleMovieSearch={handleMovieSearch}/>
             <h1>FlixBuster</h1>
             <Routes>
                 <Route path="home" element={ <Input.Search {...inputSearchProps}/> }/>
