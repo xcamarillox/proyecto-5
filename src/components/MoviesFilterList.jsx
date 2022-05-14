@@ -4,7 +4,7 @@ const MoviesList = ({moviesArr}) => {
     return (
         <>
             <h2>Películas</h2>
-            <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px' }}>
+            <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 20 }}>
                 { moviesArr.map((movie, index) => <MovieCard movie={movie} key={ index } />) }
             </div>
         </>
