@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import { Input, message } from 'antd';
+import { message } from 'antd';
 
+import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
+import { getContextType } from "../context/AppContext";
 import Navbar from "./Navbar";
 import MoviesFilterList from "./MoviesFilterList";
 import MovieCardFull from "./MovieCardFull";
 import CartList from "./CartList";
+import Home from "./Home";
 import SignForm from "./SignForm";
-import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
-import { getContextType } from "../context/AppContext";
 
 const App =  () => {
     const { 
         _movieSearchResults:[movieSearchResults, setMovieSearchResults],
         _cart:[cart]
     } = getContextType('MoviesContext');
-    const [inputValue, setInputValue] = useState();
     const [selectedPath, setSelectedPath] = useState('home');
     const navigate = useNavigate();
     const location = useLocation();
-    const handleChange = (e) => setInputValue(e.target.value)
     
     const handleMovieSearch = async (searchedMovie) => {
         if (searchedMovie.trim().length != 0){
@@ -44,16 +43,6 @@ const App =  () => {
         }
     }
 
-    const inputSearchProps = {
-        placeholder:"Busca tu película...",
-        allowClear: true,
-        enterButton:"Buscar",
-        size:"large",
-        onSearch: handleMovieSearch,
-        onChange:handleChange,
-        value: inputValue
-    }
-
     useEffect(()=>{
         let locationSplit = location.pathname.split('/')[1];
         //console.log('location', location, locationSplit);
@@ -66,7 +55,7 @@ const App =  () => {
             <Navbar selectedPath={selectedPath} handleMovieSearch={handleMovieSearch}/>
             <h1>FlixBuster</h1>
             <Routes>
-                <Route path="home" element={ <Input.Search {...inputSearchProps}/> }/>
+                <Route path="home" element={ <Home handleMovieSearch={handleMovieSearch} /> }/>
                 <Route path="filter" element={ 
                     movieSearchResults ? 
                     <MoviesFilterList moviesArr={movieSearchResults} />:
