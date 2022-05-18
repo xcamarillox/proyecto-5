@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import { Menu, Input } from "antd";
-import { PlayCircleOutlined, FilterOutlined, CheckCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { PlayCircleOutlined, FilterOutlined, CheckCircleOutlined, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 import { getContextType } from "../context/AppContext";
 
@@ -10,26 +10,29 @@ const Navbar = (props) => {
   const { 
     _pickedMovie:[pickedMovie],
     _movieSearchResults:[movieSearchResults],
+    _cart:[cart]
   } = getContextType('MoviesContext');
   const [items, setItems] = useState([
     { label: 'FlixBuster', key:"home", icon:<PlayCircleOutlined />},
     { label: 'Last Search', key:"filter", icon:<FilterOutlined />, disabled:true },
     { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled:true },
-    { label: <Input.Search style={{marginTop:6}} onSearch={props.handleMovieSearch}/>, key:"searchInput", disabled:true },
+    { label: <Input.Search style={{marginTop:6}} onSearch={props.handleMovieSearch}/>, key:"search", disabled:true },
+    { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled:true },
     { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> },
   ])
 
   
   useEffect(()=>{
-    const [home, filter, movie, searchInput, sign] = items;
+    const [homeItem, filterItem, movieItem, searchItem, cartItem, signItem] = items;
     setItems([
-      home, 
+      homeItem, 
       { label: 'Last Search', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
       { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
-      searchInput,
-      sign
+      searchItem,
+      { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length==0 ? true : false },
+      signItem
     ])
-  }, [pickedMovie, movieSearchResults])
+  }, [pickedMovie, movieSearchResults, cart])
   
 
   const onClickHandler = (params) => {

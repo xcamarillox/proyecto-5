@@ -11,7 +11,7 @@ export default ({movie}) => {
     const { _pickedMovie:[pickedMovie, setPickedMovie] } = getContextType('MoviesContext');
 
     const handleClickOnButton = (params) => {
-        //console.log('cart', cart)
+        console.log('cart', cart);
         params.e.stopPropagation();
         let cartCache = cart.map(item => item);
         let areItemsRepeated = false
@@ -31,7 +31,7 @@ export default ({movie}) => {
 
     const handleClickOnCard = (params) => {
         //console.log('card', params)
-        params.e.stopPropagation();
+        //params.e.stopPropagation();
         setPickedMovie(params.movie);
         //console.log('card', params, "/movie/" + params.movie.id);
         navigate("/movie/" + params.movie.id, { replace: true })
@@ -45,7 +45,9 @@ export default ({movie}) => {
         >
                 <h3>{ movie.title } <br/> {new Date(movie.release_date).getFullYear()} </h3>
                 <h3>${ Math.floor(((movie.popularity) * 0.05) + 5) }</h3>
-                <Button type="primary" value="large" onClick={ (event) => handleClickOnButton({ e:event, movie }) }> Agregar al Carrito <ShoppingCartOutlined /></Button>
+                <Button type="primary" value="large" onClick={ (event) => handleClickOnButton({ e:event, movie }) }> 
+                    Agregar al Carrito <ShoppingCartOutlined />
+                </Button>
         </Card>
     )
 }

@@ -6,13 +6,15 @@ import { Input, message } from 'antd';
 import Navbar from "./Navbar";
 import MoviesFilterList from "./MoviesFilterList";
 import MovieCardFull from "./MovieCardFull";
+import CartList from "./CartList";
 import SignForm from "./SignForm";
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 
 const App =  () => {
     const { 
-        _movieSearchResults:[movieSearchResults, setMovieSearchResults] 
+        _movieSearchResults:[movieSearchResults, setMovieSearchResults],
+        _cart:[cart]
     } = getContextType('MoviesContext');
     const [inputValue, setInputValue] = useState();
     const [selectedPath, setSelectedPath] = useState('home');
@@ -73,6 +75,11 @@ const App =  () => {
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
                 <Route path="signup" element={ <SignForm /> }/>
                 <Route path="signin" element={ <SignForm /> }/>
+                <Route path="cart" element={ 
+                    cart.length > 0 ?
+                    <CartList /> :
+                    <Navigate to='home'/>
+                }/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
         </>

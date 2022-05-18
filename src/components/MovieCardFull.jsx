@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams  } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 import { Card, Image, Row, Col, message } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 
@@ -18,28 +18,28 @@ export default () => {
     const [movie, setMovie] = useState({})
     const [cast, setCast] = useState([])
     const routeParams = useParams();
-    
+    const navigate = useNavigate();
+
     const getMovies = async () =>{
         try{
             let response = await getAPIdata({
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_DETAILS,
                 movieId:routeParams.movie_id
             })
-            //if (!(response && response.success!==false)) throw new Error('Error del servidor');
-            //if (response.results.length == 0) {
-            //    message.error(`No se tuvieron resultados con ${searchedMovie.trim()}`);
-            //    return;
-            //}
             //console.log(response);
+            if (!(response && response.success!==false)) {
+                throw new Error('Error del servidor');
+            }
             setMovie(response);
             response = await getAPIdata({
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
                 movieId:routeParams.movie_id
             })
             //console.log(response);
-            setCast(response.cast)
+            if (response && response.success!==false) setCast(response.cast)
         }catch(error){
             message.error(error.message);
+            navigate("/home", { replace: true })
         }
     }
 
