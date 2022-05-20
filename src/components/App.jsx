@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import { message } from 'antd';
+import { message, ConfigProvider } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
@@ -42,7 +42,13 @@ const App =  () => {
             }
         }
     }
-
+    useEffect(()=>{
+        ConfigProvider.config({
+            theme: {
+                primaryColor: '#2E3696',
+              },
+          });
+    },[])
     useEffect(()=>{
         let locationSplit = location.pathname.split('/')[1];
         //console.log('location', location, locationSplit);
@@ -51,7 +57,7 @@ const App =  () => {
     }, [location])
 
     return (
-        <>
+        <ConfigProvider>
             <Navbar selectedPath={selectedPath} handleMovieSearch={handleMovieSearch}/>
             <Routes>
                 <Route path="home" element={ <Home handleMovieSearch={handleMovieSearch} /> }/>
@@ -70,7 +76,7 @@ const App =  () => {
                 }/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
-        </>
+        </ConfigProvider>
     );
 }
 

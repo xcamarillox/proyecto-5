@@ -32,7 +32,7 @@ const SignForm = () => {
     <div style={{width:'100%', display:'flex', justifyContent:'center', alignContent:'center'}}>
       <Card 
         title={ signMode==='signin'? 'Sign In': 'Sign Up' } 
-        headStyle={{display:'flex', justifyContent:'center'}} 
+        headStyle={{display:'flex', justifyContent:'center', backgroundColor: '#2E3696', color:'#F7EC40' }} 
         style={{ maxWidth: 800, width:'100%', margin:10 }}
       >
         <Form

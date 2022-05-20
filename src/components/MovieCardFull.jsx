@@ -6,6 +6,8 @@ import { StarFilled } from '@ant-design/icons';
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 
+import question from "../../assets/question.png"
+
 const getAge = (dateString) => {
     let today = new Date();
     let birthDate = new Date(dateString);
@@ -16,7 +18,9 @@ const getAge = (dateString) => {
 }
 
 export default () => {
-    const { _movieSearchResults:[movieSearchResults, setMovieSearchResults] } = getContextType('MoviesContext');
+    const { 
+        _movieSearchResults:[movieSearchResults, setMovieSearchResults] 
+    } = getContextType('MoviesContext');
     const [movie, setMovie] = useState({})
     const [cast, setCast] = useState([])
     const routeParams = useParams();
@@ -66,54 +70,56 @@ export default () => {
 
     return (
         <Card 
-        title={
-            <>
-                <div>{movie.title}</div>
-                { movie.release_date && 
-                    <div>
-                        {movie.release_date + ' '} 
-                        { getAge(movie.release_date)>1 && 
-                            <>
-                                / {getAge(movie.release_date)} años
-                            </>
-                        }
-                    </div> 
-                }
-            </>
-        }
-        headStyle={{
-            backgroundColor:'rgb(33, 37, 41)',
-            color:'white'
-        }}
-        extra={
-            <div style={{ color:'white' }}>
-                { movie.vote_average? 
-                    <>
-                        {movie.vote_average} / 10 <StarFilled style={{ color:'yellow' }}/>
-                    </>: 'No votada'
-                }
-            </div>
-        }
-        style={{ margin:15 }}>
+            title={
+                <>
+                    <div>{movie.title}</div>
+                    { movie.release_date && 
+                        <div>
+                            {movie.release_date + ' '} 
+                            { getAge(movie.release_date)>1 && 
+                                <>
+                                    / {getAge(movie.release_date)} años
+                                </>
+                            }
+                        </div> 
+                    }
+                </>
+            }
+            headStyle={{
+                backgroundColor:'#2E3696',
+                color:'#F7EC40'
+            }}
+            extra={
+                <div style={{ color:'#F7EC40' }}>
+                    { movie.vote_average? 
+                        <>
+                            {movie.vote_average} / 10 <StarFilled style={{ color:'#F7EC40' }}/>
+                        </>: 'No votada'
+                    }
+                </div>
+            }
+            style={{ margin:30, borderColor:'#2E3696' }}
+        >
             <Card type='inner' bordered={false}>
                 <Row justify="space-evenly" align='middle'>
                     <Col lg={4}>
-                        { movie.poster_path && <Image src={ movie.poster_path && getImgEndpoint(movie.poster_path) } style={{ maxHeight: 300 }} /> }
+                        { movie.poster_path && <Image src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300 }} /> }
                     </Col>
                     <Col xs={24} sm={24} md={16} style={{margin:10}}>
                         <p>{movie.overview}</p>
                     </Col>
                 </Row>
             </Card>
-            <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', marginTop:'50px' }}>
+            <h1 style={{ textAlign:'center', marginTop: 50, color:'#2E3696' }}>Cast</h1>
+            <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', marginTop:10 }}>
                 { cast && cast.map((performer, index) => 
                     <Card 
                         type='inner' 
                         key={index}
-                        cover={ <Image src={ performer.profile_path && getImgEndpoint(performer.profile_path) }/> }
-                        style={{ maxWidth: 100, textAlign:'center', display:'flex', flexDirection:'column', justifyContent:'space-between' }}
+                        cover={ <Image src={ performer.profile_path? getImgEndpoint(performer.profile_path): question }/> }
+                        style={{ maxWidth: 100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between', color:'#2E3696', borderColor:'#2E3696' }}
                     > 
-                      <h3>{ performer.name } </h3>
+                      <h3 style={{ color:'#2E3696' }}>{ performer.name } </h3>
                     </Card>
                 )}
             </div>

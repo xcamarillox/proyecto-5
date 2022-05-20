@@ -6,7 +6,7 @@ const CartList = () => {
 
     return (
         <>
-            <h1 style={{ textAlign:'center', marginTop: 30 }}>Your Cart</h1>
+            <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Your Cart</h1>
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 20 }}>
                 { cart.map((cartItem, index) => <CartCardItem cartItem={cartItem} key={ index } />) }
             </div>

@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
-import { Menu, Input } from "antd";
-import { PlayCircleOutlined, FilterOutlined, CheckCircleOutlined, UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Menu, Input, Button } from "antd";
+import { 
+  PlayCircleOutlined, 
+  FilterOutlined, 
+  CheckCircleOutlined, 
+  UserOutlined, 
+  ShoppingCartOutlined 
+} from '@ant-design/icons';
 
 import { getContextType } from "../context/AppContext";
 
@@ -19,10 +25,10 @@ const Navbar = (props) => {
     style:{ marginTop:6 },
     placeholder:"Search a movie...",
     allowClear: true,
-    enterButton:"Search",
     onSearch: props.handleMovieSearch,
     onChange:handleChange,
-    value:searchValue
+    value:searchValue,
+    enterButton:'Search',
   }
 
   const [items, setItems] = useState([
@@ -41,10 +47,16 @@ const Navbar = (props) => {
       { label: 'Search Filter', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
       { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
       { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
-      { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length==0 ? true : false },
+      { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
       signItem
     ])
-  }, [pickedMovie, movieSearchResults, cart, searchValue])
+  }, 
+  [
+    pickedMovie, 
+    movieSearchResults, 
+    cart, 
+    searchValue
+  ])
   
 
   const onClickHandler = (params) => {
@@ -56,6 +68,7 @@ const Navbar = (props) => {
   return <Menu mode="horizontal"
           selectedKeys={[props.selectedPath]} 
           items={items} 
+          style={{ display:'flex', justifyContent:'flex-start' }}
           onClick={ onClickHandler }/>
 };
 
