@@ -4,6 +4,7 @@ import { Card, Image, Row, Col, message } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
+import { getContextType } from "../context/AppContext";
 
 const getAge = (dateString) => {
     let today = new Date();
@@ -15,21 +16,37 @@ const getAge = (dateString) => {
 }
 
 export default () => {
+    const { _movieSearchResults:[movieSearchResults, setMovieSearchResults] } = getContextType('MoviesContext');
     const [movie, setMovie] = useState({})
     const [cast, setCast] = useState([])
     const routeParams = useParams();
     const navigate = useNavigate();
-
+    const getIndexOfMovie = () =>{
+        let movieIndex = -1;
+        if (!movieSearchResults) return movieIndex;
+        movieSearchResults.forEach((movie, index) => {
+            if (movie.id == routeParams.movie_id){
+                movieIndex = index;
+                return;
+            }
+        })
+        return movieIndex;
+    }
     const getMovies = async () =>{
         try{
-            let response = await getAPIdata({
-                type: ACTIONS_LIST.SEARCH_FOR_MOVIE_DETAILS,
-                movieId:routeParams.movie_id
-            })
-            //console.log(response);
-            if (!(response && response.success!==false)) {
-                throw new Error('Error del servidor');
+            let response;
+            let indexCache = getIndexOfMovie();
+            if (indexCache!=-1) response = movieSearchResults[indexCache];
+            else{
+                response = await getAPIdata({
+                    type: ACTIONS_LIST.SEARCH_FOR_MOVIE_DETAILS,
+                    movieId:routeParams.movie_id
+                })
+                if (!(response && response.success!==false)) {
+                    throw new Error('Error del servidor');
+                }
             }
+            //console.log(response, indexCache);
             setMovie(response);
             response = await getAPIdata({
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,

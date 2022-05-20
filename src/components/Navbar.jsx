@@ -7,32 +7,44 @@ import { getContextType } from "../context/AppContext";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
+  const handleChange = (e) => setSearchValue(e.target.value)
   const { 
+    _searchValue:[searchValue, setSearchValue],
     _pickedMovie:[pickedMovie],
     _movieSearchResults:[movieSearchResults],
     _cart:[cart]
   } = getContextType('MoviesContext');
+
+  const inputSearchProps = {
+    style:{ marginTop:6 },
+    placeholder:"Search a movie...",
+    allowClear: true,
+    enterButton:"Search",
+    onSearch: props.handleMovieSearch,
+    onChange:handleChange,
+    value:searchValue
+  }
+
   const [items, setItems] = useState([
     { label: 'FlixBuster', key:"home", icon:<PlayCircleOutlined />},
-    { label: 'Last Search', key:"filter", icon:<FilterOutlined />, disabled:true },
+    { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled:true },
     { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled:true },
-    { label: <Input.Search style={{marginTop:6}} onSearch={props.handleMovieSearch}/>, key:"search", disabled:true },
+    { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
     { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled:true },
     { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> },
   ])
-
   
   useEffect(()=>{
     const [homeItem, filterItem, movieItem, searchItem, cartItem, signItem] = items;
     setItems([
       homeItem, 
-      { label: 'Last Search', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
+      { label: 'Search Filter', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
       { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
-      searchItem,
+      { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length==0 ? true : false },
       signItem
     ])
-  }, [pickedMovie, movieSearchResults, cart])
+  }, [pickedMovie, movieSearchResults, cart, searchValue])
   
 
   const onClickHandler = (params) => {

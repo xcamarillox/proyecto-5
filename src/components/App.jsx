@@ -20,7 +20,7 @@ const App =  () => {
     const [selectedPath, setSelectedPath] = useState('home');
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const handleMovieSearch = async (searchedMovie) => {
         if (searchedMovie.trim().length != 0){
             try{
@@ -36,7 +36,7 @@ const App =  () => {
                 }
                 setMovieSearchResults(response.results);
                 navigate("/filter", { replace: true });
-                //console.log(response);
+                //console.log(response.results);
             }catch(error){
                 message.error(error.message);
             }
@@ -53,7 +53,6 @@ const App =  () => {
     return (
         <>
             <Navbar selectedPath={selectedPath} handleMovieSearch={handleMovieSearch}/>
-            <h1>FlixBuster</h1>
             <Routes>
                 <Route path="home" element={ <Home handleMovieSearch={handleMovieSearch} /> }/>
                 <Route path="filter" element={ 

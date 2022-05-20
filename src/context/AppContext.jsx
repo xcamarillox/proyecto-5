@@ -11,13 +11,17 @@ export function AppProvider({children}) {
     const [movieSearchResults, setMovieSearchResults] = useState();
     const [pickedMovie, setPickedMovie] = useState();
     const [pickedMovieCast, setPickedMovieCast] = useState();
+    const [trendMovies, setTrendMovies] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
     const [cart, setCart] = useState([]);
 
     //**************** PROVIDED DATA *******************//
     const moviesContextProviderValue = {
-      _movieSearchResults:[movieSearchResults, setMovieSearchResults],
-      _pickedMovie:[pickedMovie, setPickedMovie],
-      _pickedMovieCast:[pickedMovieCast, setPickedMovieCast],
+      _movieSearchResults:[movieSearchResults, setMovieSearchResults], //API
+      _pickedMovie:[pickedMovie, setPickedMovie], //API
+      _pickedMovieCast:[pickedMovieCast, setPickedMovieCast], //API
+      _trendMovies:[trendMovies, setTrendMovies], //API
+      _searchValue:[searchValue, setSearchValue],
       _cart:[cart, setCart]
     }
     //**************** PROVIDED DATA *******************//
