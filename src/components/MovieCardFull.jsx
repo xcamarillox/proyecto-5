@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate  } from 'react-router-dom';
-import { Card, Image, Row, Col, message } from 'antd';
+import { Card, Image, Row, Col, message, Button } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
+import PriceAndAddToCart from "./PriceAndAddToCart";
 
 import question from "../../assets/question.png"
 
@@ -106,7 +107,10 @@ export default () => {
                         { movie.poster_path && <Image src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300 }} /> }
                     </Col>
                     <Col xs={24} sm={24} md={16} style={{margin:10}}>
-                        <p>{movie.overview}</p>
+                        <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                            <p>{movie.overview}</p>
+                            <PriceAndAddToCart movie={movie} />
+                        </div>
                     </Col>
                 </Row>
             </Card>
