@@ -7,7 +7,8 @@ const PriceAndAddToCart = ({movie}) => {
     const { 
         _cart:[cart, setCart],
     } = getContextType('MoviesContext');
-
+    const getPrice = (priceRef)=> Math.floor(((priceRef) * 0.05) + 5);
+    const itemPrice = getPrice(movie.popularity);
     const handleClickOnButton = (params) => {
         params.e.stopPropagation();
         let cartCache = cart.map(item => item);
@@ -21,14 +22,15 @@ const PriceAndAddToCart = ({movie}) => {
             }
         })
         if (!areItemsRepeated){
-            cartItem = { quantity: 1, movie: params.movie }
+            cartItem = { quantity: 1, movie: params.movie, price: itemPrice }
+            //console.log([...cart, cartItem]);
             setCart([...cart, cartItem])
         }
-        message.success(`You added ${params.movie.title} to your cart`);
+        message.success(<p><strong>{params.movie.title}</strong> added to your cart</p>);
     }
     return (
         <>
-            <h3 style={{ color:'#2E3696', fontWeight:900 }}>${ Math.floor(((movie.popularity) * 0.05) + 5) }</h3>
+            <h3 style={{ color:'#2E3696', fontWeight:900 }}>${ itemPrice }</h3>
             <Button style={{ color:'#F7EC40', fontWeight:500 }} type='primary' value="large" onClick={ (event) => handleClickOnButton({ e:event, movie }) }> 
                 Add to Cart <ShoppingCartOutlined />
             </Button>

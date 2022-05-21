@@ -91,13 +91,11 @@ export default () => {
                 color:'#F7EC40'
             }}
             extra={
+                movie.vote_average? 
                 <div style={{ color:'#F7EC40' }}>
-                    { movie.vote_average? 
-                        <>
-                            {movie.vote_average} / 10 <StarFilled style={{ color:'#F7EC40' }}/>
-                        </>: 'No votada'
-                    }
-                </div>
+                    {movie.vote_average} / 10 <StarFilled/>
+                </div>: 
+                'No votada'
             }
             style={{ margin:30, borderColor:'#2E3696' }}
         >
