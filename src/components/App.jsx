@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import { message, ConfigProvider } from 'antd';
+import { message, ConfigProvider, Layout } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 import Navbar from "./Navbar";
 import MoviesFilterList from "./MoviesFilterList";
 import MovieCardFull from "./MovieCardFull";
+import ArtistCard from "./ArtistCard.jsx";
+import MovieArtistList from "./MovieArtistList.jsx";
 import CartList from "./CartList";
 import Home from "./Home";
 import SignForm from "./SignForm";
@@ -73,6 +75,12 @@ const App =  () => {
                     cart.length > 0 ?
                     <CartList /> :
                     <Navigate to='home'/>
+                }/>
+                <Route path="artist/:artist_id" element= {
+                    <>
+                        <ArtistCard  />
+                        <MovieArtistList />
+                    </>
                 }/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>

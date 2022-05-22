@@ -6,7 +6,8 @@ import {
   FilterOutlined, 
   CheckCircleOutlined, 
   UserOutlined, 
-  ShoppingCartOutlined 
+  ShoppingCartOutlined,
+  IdcardOutlined
 } from '@ant-design/icons';
 
 import { getContextType } from "../context/AppContext";
@@ -36,17 +37,19 @@ const Navbar = (props) => {
     { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled:true },
     { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled:true },
     { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
+    { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled:true },
     { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled:true },
     { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> },
   ])
   
   useEffect(()=>{
-    const [homeItem, filterItem, movieItem, searchItem, cartItem, signItem] = items;
+    const [homeItem, filterItem, movieItem, searchItem, artistItem, cartItem, signItem] = items;
     setItems([
       homeItem, 
       { label: 'Search Filter', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
       { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
       { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
+      { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
       signItem
     ])

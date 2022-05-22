@@ -13,6 +13,7 @@ export function AppProvider({children}) {
     const [pickedMovieCast, setPickedMovieCast] = useState();
     const [trendMovies, setTrendMovies] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const [artist, setArtist] = useState({});
     const [cart, setCart] = useState([]);
 
     //**************** PROVIDED DATA *******************//
@@ -22,7 +23,8 @@ export function AppProvider({children}) {
       _pickedMovieCast:[pickedMovieCast, setPickedMovieCast], //API
       _trendMovies:[trendMovies, setTrendMovies], //API
       _searchValue:[searchValue, setSearchValue],
-      _cart:[cart, setCart]
+      _artist:[artist, setArtist],
+      _cart:[cart, setCart],
     }
     //**************** PROVIDED DATA *******************//
 

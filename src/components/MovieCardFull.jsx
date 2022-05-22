@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate  } from 'react-router-dom';
-import { Card, Image, Row, Col, message, Button } from 'antd';
+import { Card, Image, Row, Col, message } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
@@ -57,13 +57,16 @@ export default () => {
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
                 movieId:routeParams.movie_id
             })
-            //console.log(response);
+            console.log(response);
             if (response && response.success!==false) setCast(response.cast)
         }catch(error){
             message.error(error.message);
             navigate("/home", { replace: true })
         }
     }
+
+    const handleClickOnCard = (params) => navigate("/artist/" + params.artist.id, { replace: true })
+    
 
     useEffect(()=>{
         getMovies()
@@ -114,14 +117,16 @@ export default () => {
             </Card>
             <h1 style={{ textAlign:'center', marginTop: 50, color:'#2E3696' }}>Cast</h1>
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', marginTop:10 }}>
-                { cast && cast.map((performer, index) => 
+                { cast && cast.map((artist, index) => 
                     <Card 
+                        hoverable
                         type='inner' 
+                        onClick={ (event) => handleClickOnCard({ e:event, artist }) }
                         key={index}
-                        cover={ <Image src={ performer.profile_path? getImgEndpoint(performer.profile_path): question }/> }
+                        cover={ <Image preview={false} src={ artist.profile_path? getImgEndpoint(artist.profile_path): question }/> }
                         style={{ maxWidth: 100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between', color:'#2E3696', borderColor:'#2E3696' }}
                     > 
-                      <h3 style={{ color:'#2E3696' }}>{ performer.name } </h3>
+                      <h3 style={{ color:'#2E3696' }}>{ artist.name } </h3>
                     </Card>
                 )}
             </div>
