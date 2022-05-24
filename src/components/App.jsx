@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 import MoviesFilterList from "./MoviesFilterList";
 import MovieCardFull from "./MovieCardFull";
 import ArtistCard from "./ArtistCard.jsx";
-import MovieArtistList from "./MovieArtistList.jsx";
+import ArtistMovieList from "./ArtistMovieList.jsx";
 import CartList from "./CartList";
 import Home from "./Home";
 import SignForm from "./SignForm";
@@ -79,7 +79,7 @@ const App =  () => {
                 <Route path="artist/:artist_id" element= {
                     <>
                         <ArtistCard  />
-                        <MovieArtistList />
+                        <ArtistMovieList />
                     </>
                 }/>
                 <Route path="*" element={<Navigate to='home'/>} />

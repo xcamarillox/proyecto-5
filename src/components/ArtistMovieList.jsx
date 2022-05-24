@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
-import MovieCardArtist from "./MovieCardArtist.jsx";
+import ArtistMovieCard from "./ArtistMovieCard.jsx";
 
 const MoviesList = () => {
     const [moviesArr, setMoviesArr] = useState([])
@@ -29,7 +29,7 @@ const MoviesList = () => {
 
     return (
         <div className='movies-list'>
-            { moviesArr.map((movie, index) => <MovieCardArtist movie={movie} key={ index } />) }
+            { moviesArr.map((movie, index) => <ArtistMovieCard movie={movie} key={ index } />) }
         </div>
     )
 }

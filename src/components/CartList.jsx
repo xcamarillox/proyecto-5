@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 
-import CartCardItem from "./CartCardItem";
+import CartCardItem from "./CartMovieItem";
 import { getContextType } from "../context/AppContext";
 
 const CartList = () => {
