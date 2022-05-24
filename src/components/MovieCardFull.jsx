@@ -20,7 +20,7 @@ const getAge = (dateString) => {
 
 export default () => {
     const { 
-        _movieSearchResults:[movieSearchResults, setMovieSearchResults] 
+        _searchResults:[searchResults, setSearchResults] 
     } = getContextType('MoviesContext');
     const [movie, setMovie] = useState({})
     const [cast, setCast] = useState([])
@@ -28,8 +28,8 @@ export default () => {
     const navigate = useNavigate();
     const getIndexOfMovie = () =>{
         let movieIndex = -1;
-        if (!movieSearchResults) return movieIndex;
-        movieSearchResults.forEach((movie, index) => {
+        if (!searchResults) return movieIndex;
+        searchResults.forEach((movie, index) => {
             if (movie.id == routeParams.movie_id){
                 movieIndex = index;
                 return;
@@ -41,7 +41,7 @@ export default () => {
         try{
             let response;
             let indexCache = getIndexOfMovie();
-            if (indexCache!=-1) response = movieSearchResults[indexCache];
+            if (indexCache!=-1) response = searchResults[indexCache];
             else{
                 response = await getAPIdata({
                     type: ACTIONS_LIST.SEARCH_FOR_MOVIE_DETAILS,
@@ -57,7 +57,7 @@ export default () => {
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
                 movieId:routeParams.movie_id
             })
-            console.log(response);
+            //console.log(response);
             if (response && response.success!==false) setCast(response.cast)
         }catch(error){
             message.error(error.message);

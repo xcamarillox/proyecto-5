@@ -1,69 +1,53 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
-import { Menu, Input, Button } from "antd";
+import { Menu } from "antd";
 import { 
   PlayCircleOutlined, 
   FilterOutlined, 
-  CheckCircleOutlined, 
+  PaperClipOutlined, 
   UserOutlined, 
   ShoppingCartOutlined,
   IdcardOutlined
 } from '@ant-design/icons';
 
 import { getContextType } from "../context/AppContext";
+import SelectInputSearch from "./SelectInputSearch";
 
 const Navbar = (props) => {
+  const [items, setItems] = useState([])
   const navigate = useNavigate();
-  const handleChange = (e) => setSearchValue(e.target.value)
   const { 
-    _searchValue:[searchValue, setSearchValue],
+    _pickedArtist:[pickedArtist],
     _pickedMovie:[pickedMovie],
-    _movieSearchResults:[movieSearchResults],
+    _searchResults:[searchResults],
     _cart:[cart]
   } = getContextType('MoviesContext');
 
-  const inputSearchProps = {
-    style:{ marginTop:6 },
-    placeholder:"Search a movie...",
-    allowClear: true,
-    onSearch: props.handleMovieSearch,
-    onChange:handleChange,
-    value:searchValue,
-    enterButton:'Search',
-  }
-
-  const [items, setItems] = useState([
-    { label: 'FlixBuster', key:"home", icon:<PlayCircleOutlined />},
-    { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled:true },
-    { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled:true },
-    { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
-    { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled:true },
-    { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled:true },
-    { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> },
-  ])
-  
   useEffect(()=>{
-    const [homeItem, filterItem, movieItem, searchItem, artistItem, cartItem, signItem] = items;
     setItems([
-      homeItem, 
-      { label: 'Search Filter', key:"filter", icon:<CheckCircleOutlined />, disabled: movieSearchResults===undefined ? true : false },
-      { label: 'Last Picked', key:"movie", icon:<CheckCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
-      { label: <Input.Search {...inputSearchProps} />, key:"search", disabled:true },
-      { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled:true },
+      { label: 'FlixBuster', key:"home"}, 
+      { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled: searchResults===undefined ? true : false },
+      { label: 'Last Picked', key:"lastPicked", icon:<PaperClipOutlined />, disabled: pickedMovie===undefined ? true : false, 
+        children: [
+          { label: 'Movie', key:"movie", icon:<PlayCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
+          { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled: pickedArtist===undefined ? true : false },
+        ]
+      },
+      { label: <SelectInputSearch handleMovieSearch={props.handleMovieSearch} />, key:"search", disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
-      signItem
+      { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> }
     ])
   }, 
   [
     pickedMovie, 
-    movieSearchResults, 
-    cart, 
-    searchValue
+    searchResults, 
+    cart
   ])
   
 
   const onClickHandler = (params) => {
     if (params.key.trim() == 'movie') navigate("/" + params.key.trim() + '/' + pickedMovie.id, { replace: true });
+    else if (params.key.trim() == 'artist') navigate("/" + params.key.trim() + '/' + pickedArtist.id, { replace: true });
     else if (params.key.trim() == 'sign') navigate("/signin", { replace: true });
     else navigate("/"+params.key.trim(), { replace: true });
   }

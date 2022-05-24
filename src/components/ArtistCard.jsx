@@ -4,6 +4,7 @@ import { Image, message } from 'antd';
 import { LikeFilled } from '@ant-design/icons';
 
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
+import { getContextType } from "../context/AppContext";
 
 const getAge = (dateString) => {
     let today = new Date();
@@ -15,29 +16,30 @@ const getAge = (dateString) => {
 }
 
 const ArtistCard = ({className}) => {
-    const [artistInfo, setArtistInfo] = useState({})
+    //const [artistInfo, setArtistInfo] = useState({})
     const routeParams = useParams();
+    const { 
+        _pickedArtist:[pickedArtist, setPickedArtist],
+    } = getContextType('MoviesContext');
     const getArtistInfo = async () =>{
         let response;
-        let responseArr=[];
         try{
             response = await getAPIdata({
                 type: ACTIONS_LIST.GET_ARTIST_DATA,
                 personId: routeParams.artist_id
             })
             console.log(response);
-            if (response && response.success!==false) setArtistInfo(response);
+            if (response && response.success!==false) setPickedArtist(response);
             else throw new Error('Error del servidor');
         }catch(error){
             message.error(error.message);
             //navigate("/home", { replace: true })
         }
     }
-
     useEffect(()=>{
         getArtistInfo()
     },[])
-
+    const artistInfo = pickedArtist;
     return (
         <div className={`artist-card${ className?' '+ className: '' }`}>
             <h1>{artistInfo.name}</h1>

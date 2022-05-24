@@ -8,22 +8,22 @@ export function getContextType(type) {
 }
 
 export function AppProvider({children}) {
-    const [movieSearchResults, setMovieSearchResults] = useState();
+    const [searchSetup, setSearchSetup] = useState({type:'movie', value:''});
+    const [searchResults, setSearchResults] = useState();
     const [pickedMovie, setPickedMovie] = useState();
     const [pickedMovieCast, setPickedMovieCast] = useState();
+    const [pickedArtist, setPickedArtist] = useState({});
     const [trendMovies, setTrendMovies] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
-    const [artist, setArtist] = useState({});
     const [cart, setCart] = useState([]);
 
     //**************** PROVIDED DATA *******************//
     const moviesContextProviderValue = {
-      _movieSearchResults:[movieSearchResults, setMovieSearchResults], //API
+      _searchSetup:[searchSetup, setSearchSetup],
+      _searchResults:[searchResults, setSearchResults], //API
       _pickedMovie:[pickedMovie, setPickedMovie], //API
       _pickedMovieCast:[pickedMovieCast, setPickedMovieCast], //API
+      _pickedArtist:[pickedArtist, setPickedArtist], //API
       _trendMovies:[trendMovies, setTrendMovies], //API
-      _searchValue:[searchValue, setSearchValue],
-      _artist:[artist, setArtist],
       _cart:[cart, setCart],
     }
     //**************** PROVIDED DATA *******************//

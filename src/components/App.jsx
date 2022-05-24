@@ -16,7 +16,7 @@ import SignForm from "./SignForm";
 
 const App =  () => {
     const { 
-        _movieSearchResults:[movieSearchResults, setMovieSearchResults],
+        _searchResults:[searchResults, setSearchResults],
         _cart:[cart]
     } = getContextType('MoviesContext');
     const [selectedPath, setSelectedPath] = useState('home');
@@ -32,11 +32,11 @@ const App =  () => {
                 })
                 if (!(response && response.success!==false)) throw new Error('Error del servidor');
                 if (response.results.length == 0) {
-                    setMovieSearchResults()
+                    setSearchResults()
                     message.error(`No se tuvieron resultados con ${searchedMovie.trim()}`);
                     return;
                 }
-                setMovieSearchResults(response.results);
+                setSearchResults(response.results);
                 navigate("/filter", { replace: true });
                 //console.log(response.results);
             }catch(error){
@@ -64,8 +64,8 @@ const App =  () => {
             <Routes>
                 <Route path="home" element={ <Home handleMovieSearch={handleMovieSearch} /> }/>
                 <Route path="filter" element={ 
-                    movieSearchResults ? 
-                    <MoviesFilterList moviesArr={movieSearchResults} />:
+                    searchResults ? 
+                    <MoviesFilterList moviesArr={searchResults} />:
                     <Navigate to='home'/>
                 }/>
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
