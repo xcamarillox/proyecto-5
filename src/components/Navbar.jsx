@@ -17,6 +17,7 @@ const Navbar = (props) => {
   const [items, setItems] = useState([])
   const navigate = useNavigate();
   const { 
+    _searchSetup:[searchSetup],
     _pickedArtist:[pickedArtist],
     _pickedMovie:[pickedMovie],
     _searchResults:[searchResults],
@@ -27,19 +28,21 @@ const Navbar = (props) => {
     setItems([
       { label: 'FlixBuster', key:"home"}, 
       { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled: searchResults===undefined ? true : false },
-      { label: 'Last Picked', key:"lastPicked", icon:<PaperClipOutlined />, disabled: pickedMovie===undefined ? true : false, 
+      { label: 'Last Picked', key:"lastPicked", icon:<PaperClipOutlined />, disabled: pickedMovie && pickedArtist === undefined ? true : false, 
         children: [
           { label: 'Movie', key:"movie", icon:<PlayCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
           { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled: pickedArtist===undefined ? true : false },
         ]
       },
-      { label: <SelectInputSearch handleMovieSearch={props.handleMovieSearch} />, key:"search", disabled:true },
+      { label: <SelectInputSearch handleSearch={props.handleSearch} />, key:"search", disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
       { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> }
     ])
   }, 
   [
+    searchSetup,
     pickedMovie, 
+    pickedArtist,
     searchResults, 
     cart
   ])

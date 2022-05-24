@@ -47,7 +47,7 @@ const Home = (props) => {
                 } 
                 style={{ maxWidth:829, width:'100%', backgroundColor:'#2E3696' }} 
                 bordered={false}>
-                    <SelectInputSearch handleMovieSearch={props.handleMovieSearch} isJumbotronItem={true}/>
+                    <SelectInputSearch handleSearch={props.handleSearch} isJumbotronItem={true}/>
                 </Card>
             </div>
             <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Trending Movies</h1>

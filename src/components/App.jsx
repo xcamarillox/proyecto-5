@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import { message, ConfigProvider, Layout } from 'antd';
+import { message, ConfigProvider } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 import Navbar from "./Navbar";
 import MoviesFilterList from "./MoviesFilterList";
+import ArtistFilterList from "./ArtistFilterList";
 import MovieCardFull from "./MovieCardFull";
 import ArtistCard from "./ArtistCard.jsx";
 import ArtistMovieList from "./ArtistMovieList.jsx";
@@ -16,6 +17,7 @@ import SignForm from "./SignForm";
 
 const App =  () => {
     const { 
+        _searchSetup:[searchSetup],
         _searchResults:[searchResults, setSearchResults],
         _cart:[cart]
     } = getContextType('MoviesContext');
@@ -23,20 +25,30 @@ const App =  () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const handleMovieSearch = async (searchedMovie) => {
-        if (searchedMovie.trim().length != 0){
+    const handleSearch = async (searchedText) => {
+        if (searchedText.trim().length != 0){
             try{
-                const response = await getAPIdata({
-                    type: ACTIONS_LIST.SEARCH_FOR_MOVIES,
-                    searchedMovie
-                })
+                let response;
+                //console.log(searchSetup);
+                if (searchSetup.type == 'movie'){
+                    response = await getAPIdata({
+                        type: ACTIONS_LIST.SEARCH_FOR_MOVIES,
+                        searchedMovie: searchedText.trim()
+                    })
+                }else{
+                    response = await getAPIdata({
+                        type: ACTIONS_LIST.SEARCH_FOR_ARTIST,
+                        searchedArtist: searchedText.trim()
+                    })
+                    //console.log(response.results)
+                }
                 if (!(response && response.success!==false)) throw new Error('Error del servidor');
                 if (response.results.length == 0) {
                     setSearchResults()
-                    message.error(`No se tuvieron resultados con ${searchedMovie.trim()}`);
+                    message.error(`No se tuvieron resultados con ${searchedText.trim()}`);
                     return;
                 }
-                setSearchResults(response.results);
+                setSearchResults({type:searchSetup.type, results:response.results});
                 navigate("/filter", { replace: true });
                 //console.log(response.results);
             }catch(error){
@@ -60,21 +72,23 @@ const App =  () => {
 
     return (
         <ConfigProvider>
-            <Navbar selectedPath={selectedPath} handleMovieSearch={handleMovieSearch}/>
+            <Navbar selectedPath={selectedPath} handleSearch={handleSearch}/>
             <Routes>
-                <Route path="home" element={ <Home handleMovieSearch={handleMovieSearch} /> }/>
+                <Route path="home" element={ <Home handleSearch={handleSearch} /> }/>
                 <Route path="filter" element={ 
                     searchResults ? 
-                    <MoviesFilterList moviesArr={searchResults} />:
-                    <Navigate to='home'/>
+                        searchResults.type == 'movie' ?
+                            <MoviesFilterList moviesArr={searchResults.results} />
+                            :<ArtistFilterList artistArr={searchResults.results} />
+                        :<Navigate to='home'/>
                 }/>
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
                 <Route path="signup" element={ <SignForm /> }/>
                 <Route path="signin" element={ <SignForm /> }/>
                 <Route path="cart" element={ 
                     cart.length > 0 ?
-                    <CartList /> :
-                    <Navigate to='home'/>
+                        <CartList />
+                        :<Navigate to='home'/>
                 }/>
                 <Route path="artist/:artist_id" element= {
                     <>

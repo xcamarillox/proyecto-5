@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import ArtistMovieCard from "./ArtistMovieCard.jsx";
 
-const MoviesList = () => {
+const ArtistMovieList = () => {
     const [moviesArr, setMoviesArr] = useState([])
     const routeParams = useParams();
     const getArtistMovies = async () =>{
@@ -13,7 +13,7 @@ const MoviesList = () => {
         try{
             response = await getAPIdata({
                 type: ACTIONS_LIST.GET_FEATURING_MOVIES,
-                personId: routeParams.artist_id
+                artistId: routeParams.artist_id
             })
             console.log('MoviesList', response);
             if (response && response.success!==false) setMoviesArr(response.cast);
@@ -35,4 +35,4 @@ const MoviesList = () => {
 }
 
 
-export default MoviesList;
+export default ArtistMovieList;

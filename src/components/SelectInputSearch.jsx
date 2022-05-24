@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Input, Select, Button } from "antd";
 
 import { getContextType } from "../context/AppContext";
@@ -7,6 +6,7 @@ const SelectInputSearch = (props) => {
     const { 
         _searchSetup:[searchSetup, setSearchSetup],
     } = getContextType('MoviesContext');
+
     const handleChangeOnInput = (e) => setSearchSetup({...searchSetup, value:e.target.value})
     const handleChangeOnSelect = (value) => setSearchSetup({...searchSetup, type: value})
 
@@ -22,7 +22,7 @@ const SelectInputSearch = (props) => {
         addonBefore: selectBefore,
         placeholder:`Search ${ searchSetup.type == 'movie'? 'a movie...':'an artist...' }`,
         allowClear: true,
-        onSearch: props.handleMovieSearch,
+        onSearch: props.handleSearch,
         onChange:handleChangeOnInput,
         value:searchSetup.value,
         enterButton:props.isJumbotronItem ? 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image, message } from 'antd';
 import { LikeFilled } from '@ant-design/icons';
@@ -16,7 +16,6 @@ const getAge = (dateString) => {
 }
 
 const ArtistCard = ({className}) => {
-    //const [artistInfo, setArtistInfo] = useState({})
     const routeParams = useParams();
     const { 
         _pickedArtist:[pickedArtist, setPickedArtist],
@@ -26,7 +25,7 @@ const ArtistCard = ({className}) => {
         try{
             response = await getAPIdata({
                 type: ACTIONS_LIST.GET_ARTIST_DATA,
-                personId: routeParams.artist_id
+                artistId: routeParams.artist_id
             })
             console.log(response);
             if (response && response.success!==false) setPickedArtist(response);
