@@ -5,15 +5,15 @@ import { message, ConfigProvider } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
+import Home from "./Home";
 import Navbar from "./Navbar";
+import SignForm from "./SignForm";
+import CartList from "./CartList";
 import MoviesFilterList from "./MoviesFilterList";
 import ArtistFilterList from "./ArtistFilterList";
 import MovieCardFull from "./MovieCardFull";
 import ArtistCard from "./ArtistCard.jsx";
 import ArtistMovieList from "./ArtistMovieList.jsx";
-import CartList from "./CartList";
-import Home from "./Home";
-import SignForm from "./SignForm";
 
 const App =  () => {
     const { 
@@ -40,7 +40,7 @@ const App =  () => {
                         type: ACTIONS_LIST.SEARCH_FOR_ARTIST,
                         searchedArtist: searchedText.trim()
                     })
-                    //console.log(response.results)
+                    //console.log('App',response.results)
                 }
                 if (!(response && response.success!==false)) throw new Error('Error del servidor');
                 if (response.results.length == 0) {

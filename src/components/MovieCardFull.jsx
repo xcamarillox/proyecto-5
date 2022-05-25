@@ -20,6 +20,8 @@ const getAge = (dateString) => {
 
 export default () => {
     const { 
+        _pickedArtist:[pickedArtist, setPickedArtist],
+        _pickedArtistMovies: [pickedArtistMovies, setPickedArtistMovies],
         _searchResults:[searchResults] 
     } = getContextType('MoviesContext');
     const [movie, setMovie] = useState({})
@@ -28,7 +30,7 @@ export default () => {
     const navigate = useNavigate();
     const getIndexOfMovie = () =>{
         let movieIndex = -1;
-        if (!searchResults.results) return movieIndex;
+        if (!(searchResults && searchResults.results)) return movieIndex;
         searchResults.results.forEach((movie, index) => {
             if (movie.id == routeParams.movie_id){
                 movieIndex = index;
@@ -65,8 +67,11 @@ export default () => {
         }
     }
 
-    const handleClickOnCard = (params) => navigate("/artist/" + params.artist.id, { replace: true })
-    
+    const handleClickOnCard = (params) => {
+        setPickedArtist({});
+        setPickedArtistMovies([]);
+        navigate("/artist/" + params.artist.id, { replace: true })
+    }
 
     useEffect(()=>{
         getMovies()
@@ -105,7 +110,11 @@ export default () => {
             <Card type='inner' bordered={false}>
                 <Row justify="space-evenly" align='middle'>
                     <Col lg={4}>
-                        { movie.poster_path && <Image src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300 }} /> }
+                        <Image
+                            preview = {movie.poster_path ? true: false} 
+                            src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } 
+                            style={{ maxHeight: 300 }} 
+                        /> 
                     </Col>
                     <Col xs={24} sm={24} md={16} style={{margin:10}}>
                         <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>

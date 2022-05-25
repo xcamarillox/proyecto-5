@@ -2,11 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from "antd";
 
 import { getImgEndpoint } from '../scripts/api-helpers';
-//import { getContextType } from "../context/AppContext";
+import { getContextType } from "../context/AppContext";
+
+import question from "../../assets/question.png"
 
 const ArtistFilterList = ({artistArr}) => {
+    const { 
+      _pickedArtist:[pickedArtist, setPickedArtist],
+      _pickedArtistMovies: [pickedArtistMovies, setPickedArtistMovies],
+    } = getContextType('MoviesContext');
     const navigate = useNavigate();
-    const handleClickOnCard = (params) => navigate("/artist/" + params.artistId, { replace: true })
+    const handleClickOnCard = (params) => {
+      setPickedArtist({});
+      setPickedArtistMovies([]);
+      navigate("/artist/" + params.artistId, { replace: true });
+    }
     return (
       <div style={{
         justifyContent: 'center',
@@ -23,7 +33,7 @@ const ArtistFilterList = ({artistArr}) => {
                 key={ index }
                 hoverable
                 style={{ width: 200, borderColor:'#2E3696', textAlign:'center', display:'flex', flexDirection:'column', justifyContent:'flex-start' }}
-                cover={<img src={ artist.profile_path && getImgEndpoint(artist.profile_path) } />} 
+                cover={<img src={ artist.profile_path? getImgEndpoint(artist.profile_path): question } />} 
               >
                 <h3 style={{ color:'#2E3696' }}>{artist.name}</h3>  
                 <p style={{ color:'#2E3696' }}>Conocido por:</p>

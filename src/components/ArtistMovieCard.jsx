@@ -5,6 +5,8 @@ import { StarFilled } from '@ant-design/icons';
 import { getImgEndpoint } from '../scripts/api-helpers';
 import PriceAndAddToCart from "./PriceAndAddToCart";
 
+import question from "../../assets/question.png"
+
 const getAge = (dateString) => {
     let today = new Date();
     let birthDate = new Date(dateString);
@@ -19,7 +21,6 @@ export default ({movie}) => {
     const handleClickOnCard = () => {
         navigate("/movie/" + movie.id, { replace: true })
     }
-
     return (
         <Card 
         title={
@@ -53,7 +54,7 @@ export default ({movie}) => {
         style={{ margin:15 }}>
             <Row justify="space-evenly" align='middle'>
                 <Col lg={4}>
-                    { movie.poster_path && <Image preview={false} src={ movie.poster_path && getImgEndpoint(movie.poster_path) } style={{ maxHeight: 300, cursor:'pointer' }} onClick={ handleClickOnCard } /> }
+                    <Image preview={false} src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300, cursor:'pointer' }} onClick={ handleClickOnCard } /> 
                 </Col>
                 <Col xs={24} sm={24} md={16} style={{margin:10}}>
                     <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>

@@ -6,6 +6,8 @@ import { StarFilled, DeleteOutlined } from '@ant-design/icons';
 import { getImgEndpoint } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 
+import question from "../../assets/question.png"
+
 export default ({cartItem, itemIndex}) => {
     const navigate = useNavigate();
     const { 
@@ -37,7 +39,11 @@ export default ({cartItem, itemIndex}) => {
             <Card type='inner' bordered={false}>
                 <Row justify="space-evenly" align='middle'>
                     <Col lg={4}>
-                        { movie.poster_path && <Image src={ movie.poster_path && getImgEndpoint(movie.poster_path) } style={{ minHeight:100 }} /> }
+                        <Image 
+                            preview = {movie.poster_path ? true: false}
+                            src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } 
+                            style={{ minHeight:100 }} 
+                        /> 
                     </Col>
                     <Col xs={24} sm={24} md={16} style={{margin:10}}>
                         <div style={{ display:'flex', flexDirection:'column' }}>

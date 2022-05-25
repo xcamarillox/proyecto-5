@@ -5,7 +5,7 @@ import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 import logo from "../../assets/flixbuster_logo.png"
 import text from "../../assets/flixbuster_text.png"
-import MovieCard from "./MovieCardItem";
+import MovieCardItem from "./MovieCardItem";
 import SelectInputSearch from "./SelectInputSearch";
 
 const Home = (props) => {
@@ -52,7 +52,7 @@ const Home = (props) => {
             </div>
             <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Trending Movies</h1>
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 30 }}>
-                { trendMovies.map((movie, index) => <MovieCard movie={movie} key={ index } />) }
+                { trendMovies.map((movie, index) => <MovieCardItem movie={movie} key={ index } />) }
             </div>
         </>
     )

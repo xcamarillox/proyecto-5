@@ -6,6 +6,8 @@ import { LikeFilled } from '@ant-design/icons';
 import { ACTIONS_LIST, getAPIdata, getImgEndpoint } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
 
+import question from "../../assets/question.png"
+
 const getAge = (dateString) => {
     let today = new Date();
     let birthDate = new Date(dateString);
@@ -23,13 +25,14 @@ const ArtistCard = ({className}) => {
     const getArtistInfo = async () =>{
         let response;
         try{
-            response = await getAPIdata({
-                type: ACTIONS_LIST.GET_ARTIST_DATA,
-                artistId: routeParams.artist_id
-            })
-            console.log(response);
-            if (response && response.success!==false) setPickedArtist(response);
-            else throw new Error('Error del servidor');
+            if (Object.keys(pickedArtist).length === 0){
+                response = await getAPIdata({
+                    type: ACTIONS_LIST.GET_ARTIST_DATA,
+                    artistId: routeParams.artist_id
+                })
+                if (response && response.success!==false) setPickedArtist(response);
+                else throw new Error('Error del servidor');
+            }
         }catch(error){
             message.error(error.message);
             //navigate("/home", { replace: true })
@@ -42,9 +45,11 @@ const ArtistCard = ({className}) => {
     return (
         <div className={`artist-card${ className?' '+ className: '' }`}>
             <h1>{artistInfo.name}</h1>
-                { artistInfo.profile_path && 
-                    <Image src={ artistInfo.profile_path && getImgEndpoint(artistInfo.profile_path) } style={{ maxHeight: 400, padding:10 }} />
-                }
+            <Image
+                preview = {artistInfo.profile_path ? true: false} 
+                src={ artistInfo.profile_path? getImgEndpoint(artistInfo.profile_path): question } 
+                style={{ maxHeight: 400, padding:10 }} 
+            />
             <h3>
                 {artistInfo.birthday? artistInfo.birthday: undefined} <br />
                 {!artistInfo.deathday? (artistInfo.birthday? getAge(artistInfo.birthday) + ' años':'') : 'Fallecido'}
