@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Input, Carousel, Card, Button } from 'antd';
+import { useEffect } from "react";
+import { Carousel, Card } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";
@@ -8,10 +8,11 @@ import text from "../../assets/flixbuster_text.png"
 import MovieCardItem from "./MovieCardItem";
 import SelectInputSearch from "./SelectInputSearch";
 
-const Home = (props) => {
+const Home = () => {
     const { 
         _trendMovies:[trendMovies, setTrendMovies],
     } = getContextType('MoviesContext');
+
     const getTrendMovies = async () =>{
         try{
             let response;
@@ -47,10 +48,10 @@ const Home = (props) => {
                 } 
                 style={{ maxWidth:829, width:'100%', backgroundColor:'#2E3696' }} 
                 bordered={false}>
-                    <SelectInputSearch handleSearch={props.handleSearch} isJumbotronItem={true}/>
+                    <SelectInputSearch isJumbotronItem={true}/>
                 </Card>
             </div>
-            <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Trending Movies</h1>
+            {trendMovies.length>0 && <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Trending Movies</h1>}
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 30 }}>
                 { trendMovies.map((movie, index) => <MovieCardItem movie={movie} key={ index } />) }
             </div>

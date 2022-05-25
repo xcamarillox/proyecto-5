@@ -28,24 +28,17 @@ const Navbar = (props) => {
     setItems([
       { label: 'FlixBuster', key:"home"}, 
       { label: 'Search Filter', key:"filter", icon:<FilterOutlined />, disabled: searchResults===undefined ? true : false },
-      { label: 'Last Picked', key:"lastPicked", icon:<PaperClipOutlined />, disabled: pickedMovie === undefined && Object.keys(pickedArtist).length === 0 ? true : false, 
+      { label: 'Last Picked', key:"lastPicked", icon:<PaperClipOutlined />, disabled: pickedMovie === undefined && pickedArtist === undefined ? true : false, 
         children: [
           { label: 'Movie', key:"movie", icon:<PlayCircleOutlined />, disabled: pickedMovie===undefined ? true : false },
-          { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled: Object.keys(pickedArtist).length === 0? true : false },
+          { label: 'Artist', key:"artist", icon:<IdcardOutlined />, disabled: pickedArtist === undefined? true : false },
         ]
       },
-      { label: <SelectInputSearch handleSearch={props.handleSearch} />, key:"search", disabled:true },
+      { label: <SelectInputSearch />, key:"search", disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
       { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> }
     ])
-  }, 
-  [
-    searchSetup,
-    pickedMovie, 
-    pickedArtist,
-    searchResults, 
-    cart
-  ])
+  }, [searchSetup, pickedMovie, pickedArtist, searchResults, cart])
   
 
   const onClickHandler = (params) => {

@@ -12,8 +12,8 @@ export function AppProvider({children}) {
     const [searchResults, setSearchResults] = useState();
     const [pickedMovie, setPickedMovie] = useState();
     const [pickedMovieCast, setPickedMovieCast] = useState();
-    const [pickedArtist, setPickedArtist] = useState({});
-    const [pickedArtistMovies, setPickedArtistMovies] = useState([]);
+    const [pickedArtist, setPickedArtist] = useState();
+    const [pickedArtistMovies, setPickedArtistMovies] = useState();
     const [trendMovies, setTrendMovies] = useState([]);
     const [cart, setCart] = useState([]);
 

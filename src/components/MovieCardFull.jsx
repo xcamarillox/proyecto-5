@@ -20,6 +20,7 @@ const getAge = (dateString) => {
 
 export default () => {
     const { 
+        _pickedMovie:[pickedMovie, setPickedMovie],
         _pickedArtist:[pickedArtist, setPickedArtist],
         _pickedArtistMovies: [pickedArtistMovies, setPickedArtistMovies],
         _searchResults:[searchResults] 
@@ -28,9 +29,12 @@ export default () => {
     const [cast, setCast] = useState([])
     const routeParams = useParams();
     const navigate = useNavigate();
+
+    const handleClickOnCard = (params) => navigate("/artist/" + params.artist.id, { replace: true })
+
     const getIndexOfMovie = () =>{
         let movieIndex = -1;
-        if (!(searchResults && searchResults.results)) return movieIndex;
+        if (!(searchResults && searchResults.results && searchResults.type=='movie')) return movieIndex;
         searchResults.results.forEach((movie, index) => {
             if (movie.id == routeParams.movie_id){
                 movieIndex = index;
@@ -54,6 +58,7 @@ export default () => {
                 }
             }
             //console.log(response, indexCache);
+            setPickedMovie(response);
             setMovie(response);
             response = await getAPIdata({
                 type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
@@ -65,12 +70,6 @@ export default () => {
             message.error(error.message);
             navigate("/home", { replace: true })
         }
-    }
-
-    const handleClickOnCard = (params) => {
-        setPickedArtist({});
-        setPickedArtistMovies([]);
-        navigate("/artist/" + params.artist.id, { replace: true })
     }
 
     useEffect(()=>{
@@ -100,10 +99,10 @@ export default () => {
             }}
             extra={
                 movie.vote_average? 
-                <div style={{ color:'#F7EC40' }}>
-                    {movie.vote_average} / 10 <StarFilled/>
-                </div>: 
-                'No votada'
+                    <div style={{ color:'#F7EC40' }}>
+                        {movie.vote_average} / 10 <StarFilled/>
+                    </div>
+                    :<h3 style={{ color:'#F7EC40' }}>No votada</h3>
             }
             style={{ margin:30, borderColor:'#2E3696' }}
         >
@@ -124,7 +123,7 @@ export default () => {
                     </Col>
                 </Row>
             </Card>
-            <h1 style={{ textAlign:'center', marginTop: 50, color:'#2E3696' }}>Cast</h1>
+            {cast.length>0 && <h1 style={{ textAlign:'center', marginTop: 50, color:'#2E3696' }}>Cast</h1>}
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', marginTop:10 }}>
                 { cast && cast.map((artist, index) => 
                     <Card 

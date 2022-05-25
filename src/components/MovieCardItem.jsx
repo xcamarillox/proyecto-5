@@ -14,7 +14,6 @@ export default ({movie}) => {
     } = getContextType('MoviesContext');
 
     const handleClickOnCard = (params) => {
-        setPickedMovie(params.movie);
         navigate("/movie/" + params.movie.id, { replace: true })
     }
     return (

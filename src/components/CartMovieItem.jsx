@@ -55,8 +55,8 @@ export default ({cartItem, itemIndex}) => {
                                 { movie.vote_average? 
                                     <h3 style={{ color:'#F7EC40' }}>
                                         {movie.vote_average} / 10 <StarFilled/>
-                                    </h3>: 
-                                    'No votada'
+                                    </h3>
+                                    :<h3 style={{ color:'#F7EC40' }}>No votada</h3>
                                 }
                             </div>
                             <div style={{ display:'flex', justifyContent:'space-between' }}>
