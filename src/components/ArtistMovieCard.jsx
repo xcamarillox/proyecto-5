@@ -23,35 +23,36 @@ export default ({movie}) => {
     }
     return (
         <Card 
-        title={
-            <>
-                <div>{movie.title}</div>
-                { movie.release_date && 
-                    <div>
-                        {movie.release_date + ' '} 
-                        { getAge(movie.release_date)>1 && 
-                            <>
-                                / {getAge(movie.release_date)} años
-                            </>
-                        }
-                    </div> 
-                }
-            </>
-        }
-        headStyle={{
-            backgroundColor:'#2E3696',
-            color:'#F7EC40'
-        }}
-        extra={
-            <div style={{ color:'#F7EC40' }}>
-                { movie.vote_average? 
-                    <>
-                        {movie.vote_average} / 10 <StarFilled />
-                    </>: 'No votada'
-                }
-            </div>
-        }
-        style={{ margin:15 }}>
+            title={
+                <>
+                    <div>{movie.title}</div>
+                    { movie.release_date && 
+                        <div>
+                            {movie.release_date + ' '} 
+                            { getAge(movie.release_date)>1 && 
+                                <>
+                                    / {getAge(movie.release_date)} años
+                                </>
+                            }
+                        </div> 
+                    }
+                </>
+            }
+            headStyle={{
+                backgroundColor:'#2E3696',
+                color:'#F7EC40'
+            }}
+            extra={
+                <div style={{ color:'#F7EC40' }}>
+                    { movie.vote_average? 
+                        <>
+                            {movie.vote_average} / 10 <StarFilled />
+                        </>: 'No votada'
+                    }
+                </div>
+            }
+            style={{ marginTop:15 }}
+        >
             <Row justify="space-evenly" align='middle'>
                 <Col lg={4}>
                     <Image preview={false} src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300, cursor:'pointer' }} onClick={ handleClickOnCard } /> 

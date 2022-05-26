@@ -21,8 +21,7 @@ const getAge = (dateString) => {
 export default () => {
     const { 
         _pickedMovie:[pickedMovie, setPickedMovie],
-        _pickedArtist:[pickedArtist, setPickedArtist],
-        _pickedArtistMovies: [pickedArtistMovies, setPickedArtistMovies],
+        _pickedMovieCast:[pickedMovieCast, setPickedMovieCast],
         _searchResults:[searchResults] 
     } = getContextType('MoviesContext');
     const [movie, setMovie] = useState({})
@@ -47,23 +46,37 @@ export default () => {
         try{
             let response;
             let indexCache = getIndexOfMovie();
-            if (indexCache!=-1) response = searchResults.results[indexCache];
-            else{
+            if (indexCache != -1 && !(pickedMovie && pickedMovie.id == routeParams.movie_id)) {
+                response = searchResults.results[indexCache];
+                setPickedMovie(response);
+            }
+            if (pickedMovie && pickedMovie.id == routeParams.movie_id) {
+                response = pickedMovie;
+                indexCache = 0;
+            }
+            if (indexCache == -1){
+                //console.log('MOVIE API');
                 response = await getAPIdata({
                     type: ACTIONS_LIST.SEARCH_FOR_MOVIE_DETAILS,
                     movieId:routeParams.movie_id
                 })
                 if (!(response && response.success!==false)) {
-                    throw new Error('Error del servidor');
+                    throw new Error('Server Error');
                 }
+                setPickedMovie(response);
             }
             //console.log(response, indexCache);
-            setPickedMovie(response);
             setMovie(response);
-            response = await getAPIdata({
-                type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
-                movieId:routeParams.movie_id
-            })
+            if (pickedMovieCast && pickedMovieCast.id == routeParams.movie_id){
+                response = pickedMovieCast;
+            }else{
+                //console.log('MOVIE CAST API');
+                response = await getAPIdata({
+                    type: ACTIONS_LIST.SEARCH_FOR_MOVIE_CREDITS,
+                    movieId:routeParams.movie_id
+                })
+                setPickedMovieCast(response)
+            }
             //console.log(response);
             if (response && response.success!==false) setCast(response.cast)
         }catch(error){

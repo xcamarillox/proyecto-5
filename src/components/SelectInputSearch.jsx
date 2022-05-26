@@ -29,7 +29,7 @@ const SelectInputSearch = (props) => {
                   })
                   //console.log('App',response.results)
               }
-              if (!(response && response.success!==false)) throw new Error('Error del servidor');
+              if (!(response && response.success!==false)) throw new Error('Server Error');
               if (response.results.length == 0) {
                   setSearchResults()
                   message.error(`No se tuvieron resultados con ${searchedText.trim()}`);

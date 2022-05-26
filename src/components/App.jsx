@@ -10,14 +10,14 @@ import CartList from "./CartList";
 import MoviesFilterList from "./MoviesFilterList";
 import ArtistFilterList from "./ArtistFilterList";
 import MovieCardFull from "./MovieCardFull";
-import ArtistCard from "./ArtistCard.jsx";
-import ArtistMovieList from "./ArtistMovieList.jsx";
+import ArtistCardFull from "./ArtistCardFull.jsx";
+
 
 const App =  () => {
     const [selectedPath, setSelectedPath] = useState('home');
     const location = useLocation();
     const { 
-        _searchResults:[searchResults, setSearchResults],
+        _searchResults:[searchResults],
         _cart:[cart]
     } = getContextType('MoviesContext');
 
@@ -56,12 +56,7 @@ const App =  () => {
                         <CartList />
                         :<Navigate to='home'/>
                 }/>
-                <Route path="artist/:artist_id" element= {
-                    <>
-                        <ArtistCard  />
-                        <ArtistMovieList />
-                    </>
-                }/>
+                <Route path="artist/:artist_id" element= { <ArtistCardFull  />}/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
         </ConfigProvider>

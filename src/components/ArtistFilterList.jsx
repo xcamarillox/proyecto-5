@@ -12,7 +12,7 @@ const ArtistFilterList = ({artistArr}) => {
     }
     return (
       <>
-        <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Pick an Artist</h1>
+        <h1 style={{ textAlign:'center', color:'#F7EC40', backgroundColor:'#2E3696', margin:'50px 30px 30px 30px', padding:10}}>Pick an Artist</h1>
         <div style={{
           justifyContent: 'center',
           position: 'relative',

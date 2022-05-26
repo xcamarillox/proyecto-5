@@ -23,7 +23,7 @@ const Home = () => {
                 })
                 //console.log('API',response);
                 if (!(response && response.success!==false)) {
-                    throw new Error('Error del servidor');
+                    throw new Error('Server Error');
                 }
                 setTrendMovies(response.results);
             }
@@ -51,7 +51,9 @@ const Home = () => {
                     <SelectInputSearch isJumbotronItem={true}/>
                 </Card>
             </div>
-            {trendMovies.length>0 && <h1 style={{ textAlign:'center', marginTop: 30, color:'#2E3696' }}>Trending Movies</h1>}
+            { trendMovies.length>0 && 
+                <h1 style={{ textAlign:'center', color:'#F7EC40', backgroundColor:'#2E3696', margin:'50px 30px 30px 30px', padding:10}}>Trending Movies</h1>
+            }
             <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 30 }}>
                 { trendMovies.map((movie, index) => <MovieCardItem movie={movie} key={ index } />) }
             </div>
