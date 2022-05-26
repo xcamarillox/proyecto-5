@@ -31,9 +31,9 @@ const SignForm = () => {
   return (
     <div style={{width:'100%', display:'flex', justifyContent:'center', alignContent:'center'}}>
       <Card 
-        title={ signMode==='signin'? 'Sign In': 'Sign Up' } 
+        title={ <h2 style={{ color:'#F7EC40' }}>{ signMode==='signin'? 'Sign In': 'Sign Up' }</h2>} 
         headStyle={{display:'flex', justifyContent:'center', backgroundColor: '#2E3696', color:'#F7EC40' }} 
-        style={{ maxWidth: 800, width:'100%', margin:10 }}
+        style={{ maxWidth: 800, width:'100%', margin:10, borderColor:'#2E3696', textAlign:'center' }}
       >
         <Form
           form={form}

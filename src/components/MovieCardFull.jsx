@@ -115,7 +115,7 @@ export default () => {
                     <div style={{ color:'#F7EC40' }}>
                         {movie.vote_average} / 10 <StarFilled/>
                     </div>
-                    :<h3 style={{ color:'#F7EC40' }}>No votada</h3>
+                    :<h3 style={{ color:'#F7EC40' }}>No votes</h3>
             }
             style={{ margin:30, borderColor:'#2E3696' }}
         >

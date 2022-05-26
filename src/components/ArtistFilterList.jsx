@@ -11,8 +11,16 @@ const ArtistFilterList = ({artistArr}) => {
       navigate("/artist/" + params.artistId, { replace: true });
     }
     return (
-      <>
-        <h1 style={{ textAlign:'center', color:'#F7EC40', backgroundColor:'#2E3696', margin:'50px 30px 30px 30px', padding:10}}>Pick an Artist</h1>
+      <Card
+        title={
+          <h2 style={{ color:'#F7EC40' }}>Pick an Artist</h2>
+        }
+        headStyle={{
+          backgroundColor:'#2E3696',
+          color:'#F7EC40'
+        }}
+        style={{ margin:30, borderColor:'#2E3696', textAlign:'center' }}
+      >
         <div style={{
           justifyContent: 'center',
           position: 'relative',
@@ -35,7 +43,7 @@ const ArtistFilterList = ({artistArr}) => {
                 </Card>
             )}
         </div>
-      </>
+      </Card>
     )
 };
 

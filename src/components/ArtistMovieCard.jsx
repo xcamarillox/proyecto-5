@@ -47,7 +47,7 @@ export default ({movie}) => {
                     { movie.vote_average? 
                         <>
                             {movie.vote_average} / 10 <StarFilled />
-                        </>: 'No votada'
+                        </>: 'No votes'
                     }
                 </div>
             }

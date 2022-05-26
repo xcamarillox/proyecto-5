@@ -52,11 +52,21 @@ const Home = () => {
                 </Card>
             </div>
             { trendMovies.length>0 && 
-                <h1 style={{ textAlign:'center', color:'#F7EC40', backgroundColor:'#2E3696', margin:'50px 30px 30px 30px', padding:10}}>Trending Movies</h1>
+                <Card
+                    title={
+                      <h2 style={{ color:'#F7EC40' }}>Trending Movies</h2>
+                    }
+                    headStyle={{
+                      backgroundColor:'#2E3696',
+                      color:'#F7EC40'
+                    }}
+                    style={{ margin:30, borderColor:'#2E3696', textAlign:'center' }}
+                >
+                    <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 30 }}>
+                        { trendMovies.map((movie, index) => <MovieCardItem movie={movie} key={ index } />) }
+                    </div>
+                </Card>
             }
-            <div style={{ display: 'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', gap:'20px', padding: 30 }}>
-                { trendMovies.map((movie, index) => <MovieCardItem movie={movie} key={ index } />) }
-            </div>
         </>
     )
 }
