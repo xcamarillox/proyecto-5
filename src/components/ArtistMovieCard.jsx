@@ -18,13 +18,11 @@ const getAge = (dateString) => {
 
 export default ({movie}) => {
     const navigate = useNavigate();
-    const handleClickOnCard = () => {
-        navigate("/movie/" + movie.id, { replace: true })
-    }
+    const handleLinkToMovie = () => navigate("/movie/" + movie.id, { replace: true })
     return (
         <Card 
             title={
-                <>
+                <div onClick={handleLinkToMovie} style={{ cursor:'pointer' }}>
                     <div>{movie.title}</div>
                     { movie.release_date && 
                         <div>
@@ -36,7 +34,7 @@ export default ({movie}) => {
                             }
                         </div> 
                     }
-                </>
+                </div>
             }
             headStyle={{
                 backgroundColor:'#2E3696',
@@ -55,7 +53,7 @@ export default ({movie}) => {
         >
             <Row justify="space-evenly" align='middle'>
                 <Col lg={4}>
-                    <Image preview={false} src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300, cursor:'pointer' }} onClick={ handleClickOnCard } /> 
+                    <Image src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } style={{ maxHeight: 300, cursor:'pointer' }} /> 
                 </Col>
                 <Col xs={24} sm={24} md={16} style={{margin:10}}>
                     <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>

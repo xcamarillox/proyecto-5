@@ -34,6 +34,7 @@ const App =  () => {
         let locationSplit = location.pathname.split('/')[1];
         //console.log('location', location, locationSplit);
         if (locationSplit == 'signup' || locationSplit == 'signin') locationSplit = 'sign'
+        if (locationSplit == 'cart' || locationSplit == 'checkout') locationSplit = 'cart'
         if (locationSplit != selectedPath) setSelectedPath(locationSplit)
     }, [location])
 
@@ -42,24 +43,21 @@ const App =  () => {
             <Navbar selectedPath={selectedPath} />
             <Routes>
                 <Route path="home" element={ <Home /> }/>
-                <Route path="signup" element={ <SignForm /> }/>
-                <Route path="signin" element={ <SignForm /> }/>
                 <Route path="profile" element={ <Profile /> }/>
                 <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
                 <Route path="artist/:artist_id" element= { <ArtistCardFull  />}/>
-                <Route path="filter" element={ 
-                    searchResults ? 
-                        searchResults.type == 'movie' ?
-                            <MoviesFilterList moviesArr={searchResults.results} />
-                            :<ArtistFilterList artistArr={searchResults.results} />
-                        :<Navigate to='home'/>
-                }/>
-                <Route path="cart" element={ 
-                    cart.length > 0 ?
-                        <CartList />
-                        :<Navigate to='home'/>
-                }/>
-                <Route path="*" element={<Navigate to='home'/>} />
+                {searchResults && <Route path="filter" element={ 
+                    searchResults.type == 'movie' ?
+                        <MoviesFilterList moviesArr={searchResults.results} />
+                        :<ArtistFilterList artistArr={searchResults.results} />
+                }/>}
+                {["signup", "signin"].map((path, index) => {
+                    return <Route path={path} key={index} element={ <SignForm /> }/>
+                })}
+                { cart.length > 0 && ["cart", "checkout"].map((path, index) => {
+                   return <Route path={path} key={index} element={ <CartList /> }/>
+                })}
+                <Route path="*" element={ <Navigate to='home'/> } />
             </Routes>
         </ConfigProvider>
     );

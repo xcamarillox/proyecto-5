@@ -11,8 +11,8 @@ const SignForm = () => {
   useEffect(()=>{
     form.resetFields();
     const locationSplit = location.pathname.split('/')[1];
-    if (locationSplit != 'signup') setSignMode('signin')
-    else setSignMode('signup')
+    if (locationSplit == 'signup') setSignMode('signup')
+    else setSignMode('signin')
   }, [location])
 
   const onFinish = (values) => {

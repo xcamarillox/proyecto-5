@@ -8,7 +8,7 @@ import { getContextType } from "../context/AppContext";
 
 import question from "../../assets/question.png"
 
-export default ({cartItem, itemIndex}) => {
+export default ({cartItem, itemIndex, isCheckOutMode}) => {
     const navigate = useNavigate();
     const { 
         _cart:[cart, setCart],
@@ -36,38 +36,36 @@ export default ({cartItem, itemIndex}) => {
     }
     return (
         <Card style={{ marginTop:5, borderColor:'#2E3696', width:'100%' }}>
-            <Card type='inner' bordered={false}>
-                <Row justify="space-evenly" align='middle'>
-                    <Col lg={4}>
-                        <Image 
-                            preview = {movie.poster_path ? true: false}
-                            src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } 
-                            style={{ minHeight:100 }} 
-                        /> 
-                    </Col>
-                    <Col xs={24} sm={24} md={16} style={{margin:10}}>
-                        <div style={{ display:'flex', flexDirection:'column' }}>
-                            <div 
-                                onClick={handleLinkToMovie} 
-                                style={{ display:'flex', justifyContent:'space-between', backgroundColor:'#2E3696', marginBottom:10, padding:10, cursor:'pointer' }}
-                            >
-                                <h3 style={{ color:'#F7EC40' }}>{movie.title}</h3>
-                                { movie.vote_average? 
-                                    <h3 style={{ color:'#F7EC40' }}>
-                                        {movie.vote_average} / 10 <StarFilled/>
-                                    </h3>
-                                    :<h3 style={{ color:'#F7EC40' }}>No votes</h3>
-                                }
-                            </div>
-                            <div style={{ display:'flex', justifyContent:'space-between' }}>
-                                <Button type='primary' danger onClick={handleButtonClick}><DeleteOutlined /></Button>
-                                <Input addonBefore="Quantity:" type='number' size='middle' style={{ maxWidth:300 }} value={cartItem.quantity} onChange={handleInputChange}></Input>
-                                <h3 style={{ color:'#2E3696', fontWeight:900 }}>${ cartItem.price*cartItem.quantity }</h3>
-                            </div>
+            <Row justify="space-evenly" align='middle'>
+                <Col lg={isCheckOutMode ? 2 :4}>
+                    <Image 
+                        preview = {movie.poster_path ? true: false}
+                        src={ movie.poster_path? getImgEndpoint(movie.poster_path): question } 
+                        style={{ minHeight:100 }} 
+                    /> 
+                </Col>
+                <Col xs={24} sm={24} md={isCheckOutMode ? 18 :16} style={{margin:isCheckOutMode ? 0 :10}}>
+                    <div style={{ display:'flex', flexDirection:'column' }}>
+                        <div 
+                            onClick={handleLinkToMovie} 
+                            style={{ display:'flex', justifyContent:'space-between', flexWrap:'wrap', backgroundColor:'#2E3696', marginBottom:10, padding:10, cursor:'pointer' }}
+                        >
+                            <h3 style={{ color:'#F7EC40' }}>{movie.title}</h3>
+                            { movie.vote_average? 
+                                <h3 style={{ color:'#F7EC40' }}>
+                                    {movie.vote_average} / 10 <StarFilled/>
+                                </h3>
+                                :<h3 style={{ color:'#F7EC40' }}>No votes</h3>
+                            }
                         </div>
-                    </Col>
-                </Row>
-            </Card>
+                        <div style={{ display:'flex', justifyContent:'space-between' }}>
+                            <Button type='primary' danger onClick={handleButtonClick}><DeleteOutlined /></Button>
+                            <Input addonBefore="Quantity:" type='number' size='middle' style={{ maxWidth:300 }} value={cartItem.quantity} onChange={handleInputChange}></Input>
+                            <h3 style={{ color:'#2E3696', fontWeight:900 }}>${ cartItem.price*cartItem.quantity }</h3>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
         </Card>
     )
 }

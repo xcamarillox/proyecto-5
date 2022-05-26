@@ -1,4 +1,12 @@
 import { useState, createContext, useContext } from 'react';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+const initialPayPalOptions = {
+  "client-id": "test",
+  currency: "USD",
+  intent: "capture",
+  "data-client-token": "abc123xyz==",
+};
 
 export const MoviesContext = createContext();
 
@@ -31,8 +39,10 @@ export function AppProvider({children}) {
     //**************** PROVIDED DATA *******************//
 
     return (
-        <MoviesContext.Provider value={ moviesContextProviderValue }>
+      <MoviesContext.Provider value={ moviesContextProviderValue }>
+        <PayPalScriptProvider options={initialPayPalOptions}>
           { children }
-        </MoviesContext.Provider>
+        </PayPalScriptProvider>
+      </MoviesContext.Provider>
     )
 }
