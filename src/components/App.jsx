@@ -7,6 +7,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import SignForm from "./SignForm";
 import CartList from "./CartList";
+import Profile from "./Profile";
 import MoviesFilterList from "./MoviesFilterList";
 import ArtistFilterList from "./ArtistFilterList";
 import MovieCardFull from "./MovieCardFull";
@@ -41,6 +42,11 @@ const App =  () => {
             <Navbar selectedPath={selectedPath} />
             <Routes>
                 <Route path="home" element={ <Home /> }/>
+                <Route path="signup" element={ <SignForm /> }/>
+                <Route path="signin" element={ <SignForm /> }/>
+                <Route path="profile" element={ <Profile /> }/>
+                <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
+                <Route path="artist/:artist_id" element= { <ArtistCardFull  />}/>
                 <Route path="filter" element={ 
                     searchResults ? 
                         searchResults.type == 'movie' ?
@@ -48,15 +54,11 @@ const App =  () => {
                             :<ArtistFilterList artistArr={searchResults.results} />
                         :<Navigate to='home'/>
                 }/>
-                <Route path="movie/:movie_id" element={ <MovieCardFull /> }/>
-                <Route path="signup" element={ <SignForm /> }/>
-                <Route path="signin" element={ <SignForm /> }/>
                 <Route path="cart" element={ 
                     cart.length > 0 ?
                         <CartList />
                         :<Navigate to='home'/>
                 }/>
-                <Route path="artist/:artist_id" element= { <ArtistCardFull  />}/>
                 <Route path="*" element={<Navigate to='home'/>} />
             </Routes>
         </ConfigProvider>

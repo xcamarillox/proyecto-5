@@ -36,6 +36,7 @@ const Navbar = (props) => {
       },
       { label: <SelectInputSearch />, key:"search", disabled:true },
       { label: 'Cart', key:"cart", icon:<ShoppingCartOutlined />, disabled: cart.length > 0 ? false : true },
+      { label: 'My Profile', key:"profile", icon:<UserOutlined /> },
       { label: 'Sign In / Up', key:"sign", icon:<UserOutlined /> }
     ])
   }, [searchSetup, pickedMovie, pickedArtist, searchResults, cart])

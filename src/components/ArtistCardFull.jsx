@@ -100,8 +100,8 @@ const ArtistCardFull = () => {
             </div>
             {
                 artistInfo.biography &&
-                <Collapse>
-                    <Collapse.Panel header="Biography" key="1" style={{ color:'#2E3696' }}>
+                <Collapse style={{ borderColor:'#2E3696', color:'#2E3696' }}>
+                    <Collapse.Panel header="Biography" key="1" style={{ borderColor:'#2E3696' }}>
                         <p style={{ color:'#2E3696' }}>
                             { artistInfo.biography }
                         </p>
