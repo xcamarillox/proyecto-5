@@ -47,7 +47,7 @@ const SelectInputSearch = (props) => {
     const selectBefore = (
       <Select 
         value={searchSetup.type} 
-        style={props.isJumbotronItem ? {backgroundColor:'#F7EC40', color:'#2E3696'}: {}} 
+        style={props.isJumbotronItem ? {backgroundColor:'rgb(249, 241, 121)', color:'#2E3696'}: {}} 
         onChange={ handleChangeOnSelect }
       >
         <Select.Option value="movie">Movie</Select.Option>
@@ -64,7 +64,7 @@ const SelectInputSearch = (props) => {
         onChange:handleChangeOnInput,
         value:searchSetup.value,
         enterButton:props.isJumbotronItem ? 
-            <Button style={{backgroundColor:'#F7EC40', color:'#2E3696'}}>Search</Button>:
+            <Button style={{backgroundColor:'rgb(249, 241, 121)', color:'#2E3696'}}>Search</Button>:
             'Search',
     }
 

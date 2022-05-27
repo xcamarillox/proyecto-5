@@ -4,9 +4,7 @@ import MovieCardItem from "./MovieCardItem";
 const MoviesList = ({moviesArr}) => {
     return (
         <Card
-            title={
-              <h2 style={{ color:'#F7EC40' }}>Pick a Movie</h2>
-            }
+            title={ <h2 style={{ color:'#F7EC40' }}>Pick a Movie</h2> }
             headStyle={{
               backgroundColor:'#2E3696',
               color:'#F7EC40',

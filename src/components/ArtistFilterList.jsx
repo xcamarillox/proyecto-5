@@ -12,9 +12,7 @@ const ArtistFilterList = ({artistArr}) => {
     }
     return (
       <Card
-        title={
-          <h2 style={{ color:'#F7EC40' }}>Pick an Artist</h2>
-        }
+        title={ <h2 style={{ color:'#F7EC40' }}>Pick an Artist</h2> }
         headStyle={{
           backgroundColor:'#2E3696',
           color:'#F7EC40'

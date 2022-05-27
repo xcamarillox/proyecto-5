@@ -68,14 +68,20 @@ const ArtistCardFull = () => {
 
     return (
         <Card
-            title={ <h3 style={{ color:'#F7EC40' }}> { artistInfo.name }</h3>}
-            headStyle={{ backgroundColor:'#2E3696' }}
-            extra={
-                <h3 style={{ color:'#F7EC40' }}>
-                    {artistInfo.birthday? artistInfo.birthday: undefined} {!artistInfo.deathday? (artistInfo.birthday? '(' + getAge(artistInfo.birthday) + ' years old)':'') : 'Deseaded'} <br />
-                    {artistInfo.place_of_birth}
-                </h3>
+            title={ 
+                <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center' }}>
+                    <h2 style={{ color:'#F7EC40' }}> { artistInfo.name }</h2>
+                    <h4 style={{ color:'#F7EC40' }}>
+                        {artistInfo.birthday? artistInfo.birthday: undefined} 
+                        {!artistInfo.deathday? 
+                            (artistInfo.birthday? ' (' + getAge(artistInfo.birthday) + ' years old)':'') 
+                            :' (Deceased)'
+                        } <br/>
+                        {artistInfo.place_of_birth}
+                    </h4>
+                </div>
             }
+            headStyle={{ backgroundColor:'#2E3696' }}
             style={{ margin:30, borderColor:'#2E3696' }}
         >
             <div style={{ width: '100%', marginTop: 10, textAlign: 'center' }}>
@@ -84,7 +90,17 @@ const ArtistCardFull = () => {
                     src={ artistInfo.profile_path? getImgEndpoint(artistInfo.profile_path): question } 
                     style={{ maxHeight: 400, padding:10, maxWidth:300 }} 
                 />
-                <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'space-around', backgroundColor:'#2E3696', width:'100%', padding:5 }}>
+                <div 
+                    style={{ 
+                        display:'flex', 
+                        flexWrap:'wrap', 
+                        justifyContent:'space-around', 
+                        backgroundColor:'#2E3696', 
+                        width:'100%', 
+                        padding:5,
+                        borderRadius: '2px 2px 0px 0px'
+                    }}
+                >
                     <h3 style={{ color:'#F7EC40' }}>
                         { artistInfo.gender==1? 'Female': (artistInfo.gender==2? 'Male': 'Undefined')}
                     </h3>

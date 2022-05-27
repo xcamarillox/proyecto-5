@@ -22,33 +22,19 @@ export default ({movie}) => {
     return (
         <Card 
             title={
-                <div onClick={handleLinkToMovie} style={{ cursor:'pointer' }}>
-                    <div>{movie.title}</div>
-                    { movie.release_date && 
-                        <div>
-                            {movie.release_date + ' '} 
-                            { getAge(movie.release_date)>1 && 
-                                <>
-                                    / {getAge(movie.release_date)} años
-                                </>
-                            }
-                        </div> 
-                    }
+                <div 
+                    onClick={handleLinkToMovie} 
+                    style={{ display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', cursor:'pointer' }}
+                >
+                    <h3 style={{ color:'#F7EC40' }}>{movie.title}</h3>
+                    <h4 style={{ color:'#F7EC40' }}>
+                        { movie.release_date } 
+                        { movie.release_date && getAge(movie.release_date)>1 && <> / {getAge(movie.release_date)} years</> }
+                        { movie.vote_average? <><br />{movie.vote_average} / 10 <StarFilled/></>:<><br />No votes</> }
+                    </h4>
                 </div>
             }
-            headStyle={{
-                backgroundColor:'#2E3696',
-                color:'#F7EC40'
-            }}
-            extra={
-                <div style={{ color:'#F7EC40' }}>
-                    { movie.vote_average? 
-                        <>
-                            {movie.vote_average} / 10 <StarFilled />
-                        </>: 'No votes'
-                    }
-                </div>
-            }
+            headStyle={{ backgroundColor:'#2E3696', color:'#F7EC40' }}
             style={{ marginTop:15 }}
         >
             <Row justify="space-evenly" align='middle'>

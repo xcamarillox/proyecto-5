@@ -14,14 +14,17 @@ export default () => {
     } = getContextType('MoviesContext');
     return (
         <Card
-            title={ <h3 style={{ color:'#F7EC40' }}>My Profile</h3>}
-            headStyle={{ backgroundColor:'#2E3696' }}
-            extra={
-                <h3 style={{ color:'#F7EC40' }}>
-                    {artistInfo.birthday? artistInfo.birthday: undefined} {!artistInfo.deathday? (artistInfo.birthday? '(' + getAge(artistInfo.birthday) + ' years old)':'') : 'Deseaded'} <br />
-                    {artistInfo.place_of_birth}
-                </h3>
+            title={ 
+                <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center' }}>
+                    <h2 style={{ color:'#F7EC40' }}> { artistInfo.name }</h2>
+                        <h4 style={{ color:'#F7EC40' }}>
+                            {artistInfo.birthday? artistInfo.birthday: undefined} 
+                            {!artistInfo.deathday? (artistInfo.birthday? ' (' + getAge(artistInfo.birthday) + ' years old)':'') : ' Deceased'} <br/>
+                            {artistInfo.place_of_birth}
+                        </h4>
+                </div>
             }
+            headStyle={{ backgroundColor:'#2E3696' }}
             style={{ margin:30, borderColor:'#2E3696', textAlign:'center' }}
         >
             <div style={{ width: '100%', marginTop: 10, textAlign: 'center' }}>
