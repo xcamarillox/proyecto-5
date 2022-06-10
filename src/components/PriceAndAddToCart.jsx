@@ -22,7 +22,7 @@ const PriceAndAddToCart = ({movie}) => {
             }
         })
         if (!areItemsRepeated){
-            cartItem = { quantity: 1, movie: params.movie, price: itemPrice }
+            let cartItem = { quantity: 1, movie: params.movie, price: itemPrice }
             //console.log([...cart, cartItem]);
             setCart([...cart, cartItem])
         }

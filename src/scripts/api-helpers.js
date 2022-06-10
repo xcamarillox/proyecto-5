@@ -1,12 +1,15 @@
-//************** BACKEND SETUP **************//
+//************** FRONTEND/BACKEND SETUP **************//
 const usingOwnBackend = true;
-const usingLocalHostBackend = true;
+const usingOwnRemoteBackend = false;
+const usingSameOwnLocalHostAsTheBackend = true;
+//---------------------------------------------------//
 let endpointPrefix = `https://api.themoviedb.org/3`;
 let endpointSuffix = `&language=en-US&page=1&include_adult=false`;
-if (usingOwnBackend && usingLocalHostBackend) endpointPrefix = "http://localhost:3000";
-else if (usingOwnBackend && !usingLocalHostBackend) endpointPrefix = "";
+if (usingOwnBackend && usingOwnRemoteBackend) endpointPrefix = "";
+else if (usingOwnBackend && !usingOwnRemoteBackend && usingSameOwnLocalHostAsTheBackend) endpointPrefix = "";
+else if (usingOwnBackend && !usingOwnRemoteBackend && !usingSameOwnLocalHostAsTheBackend) endpointPrefix = "http://localhost:3000";
 const APP_API_KEY = usingOwnBackend ? process.env.API_KEY_FLIXBUSTER : process.env.API_KEY_MOVIEDB;
-//************** BACKEND SETUP **************//
+//************** FRONTEND/BACKEND SETUP **************//
 
 export const ACTIONS_LIST = {
     SEARCH_TRENDS: 1,
