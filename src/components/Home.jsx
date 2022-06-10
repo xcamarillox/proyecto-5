@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Carousel, Card } from 'antd';
+import { Carousel, Card, message } from 'antd';
 
 import { ACTIONS_LIST, getAPIdata } from '../scripts/api-helpers';
 import { getContextType } from "../context/AppContext";

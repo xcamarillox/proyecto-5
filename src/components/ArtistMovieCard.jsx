@@ -24,7 +24,13 @@ export default ({movie}) => {
             title={
                 <div 
                     onClick={handleLinkToMovie} 
-                    style={{ display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', cursor:'pointer' }}
+                    style={{ 
+                        display:'flex', 
+                        flexWrap:'wrap', 
+                        justifyContent:'space-between', 
+                        alignItems:'center', 
+                        cursor:'pointer',
+                    }}
                 >
                     <h3 style={{ color:'#F7EC40' }}>{movie.title}</h3>
                     <h4 style={{ color:'#F7EC40' }}>
@@ -34,7 +40,10 @@ export default ({movie}) => {
                     </h4>
                 </div>
             }
-            headStyle={{ backgroundColor:'#2E3696', color:'#F7EC40' }}
+            headStyle={{ 
+                backgroundColor:'#2E3696', 
+                color:'#F7EC40',
+            }}
             style={{ marginTop:15 }}
         >
             <Row justify="space-evenly" align='middle'>

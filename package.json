@@ -1,7 +1,7 @@
 {
-    "name": "flixbuster",
+    "name": "flixbuster_front",
     "version": "1.0.0",
-    "description": "flixbuster",
+    "description": "flixbuster frontend",
     "source": "./src/index.html",
     "scripts": {
         "start": "parcel",
